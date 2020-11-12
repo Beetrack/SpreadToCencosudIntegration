@@ -1,6 +1,12 @@
 
 service: SpreadToCencosudIntegration
 
+custom:
+  environmentVariables:
+    api_key:
+        master: 'SpreadCencoMas'
+        staging: 'SpreadCencoSta'
+
 provider:
   name: aws
   runtime: python3.8
