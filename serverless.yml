@@ -1,8 +1,6 @@
 
 service: SpreadToCencosudIntegration
 
-frameworkVersion: '2'
-
 provider:
   name: aws
   runtime: python3.8
