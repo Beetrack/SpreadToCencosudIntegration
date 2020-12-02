@@ -1,4 +1,4 @@
-import json, os
+import json,
 from pkg.paris_handler import ParisHandler
 from pkg.beetrack_api import BeetrackAPI
 from pkg.commons import fetch_tag_value
@@ -18,7 +18,6 @@ def integrate(event, context):
     if not spread_route:
       print("Route does not exist or doesn't have any Paris dispatch.")
       response_body = {"message": "Route does not exist or doesnt have Paris dispatches"}
-      return response_body
 
     else:
       truck_identifier = "SPR-" + body.get("truck")
@@ -33,7 +32,6 @@ def integrate(event, context):
       start_paris_route = paris.start_route(new_paris_route_id, route_start_at)
       print(start_paris_route)
       response_body = {"Message": "Route was created and Started correctly"}
-      return response_body
 
   elif body.get("resource") == "dispatch" and body.get("event") == "update":
     print({"Handler If Case" : "Update Dispatch"})
@@ -42,14 +40,11 @@ def integrate(event, context):
       update_dispatch_on_paris = paris.update_dispatch()
       print(update_dispatch_on_paris)
       response_body = {"Message": "Dispatch was updated with new status"}
-      return response_body
     else:
       response_body = {"Message": "Resource is dispatch but event is not update or is not Paris group or status is pending. Not doing anything."}
-      return response_body
 
   else:
     response_body = {"Message': 'Webhook resource is not 'route' or 'dispatch'. Not doing anything"}
-    return response_body
 
   response = {
           "statusCode": 200,
