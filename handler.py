@@ -17,7 +17,7 @@ def integrate(event, context):
 
     if not spread_route:
       print("Route does not exist or doesn't have any Paris dispatch.")
-      response_body = {"message": "Route does not exist or doesnt have Paris dispatches"}
+      response_body = "Message: Route does not exist or doesnt have Paris dispatches"
 
     else:
       truck_identifier = "SPR-" + body.get("truck")
@@ -31,7 +31,7 @@ def integrate(event, context):
       print(new_paris_route_id)
       start_paris_route = paris.start_route(new_paris_route_id, route_start_at)
       print(start_paris_route)
-      response_body = {"Message": "Route was created and Started correctly"}
+      response_body = "Message: Route was created and Started correctly"
 
   elif body.get("resource") == "dispatch" and body.get("event") == "update":
     print({"Handler If Case" : "Update Dispatch"})
@@ -39,16 +39,16 @@ def integrate(event, context):
     if group_name == "PARIS" and body.get("status") != 1:
       update_dispatch_on_paris = paris.update_dispatch()
       print(update_dispatch_on_paris)
-      response_body = {"Message": "Dispatch was updated with new status"}
+      response_body = "Message: Dispatch was updated with new status"
     else:
-      response_body = {"Message": "Resource is dispatch but event is not update or is not Paris group or status is pending. Not doing anything."}
+      response_body = "Message: Resource is dispatch but event is not update or is not Paris group or status is pending. Not doing anything."
 
   else:
-    response_body = {"Message': 'Webhook resource is not 'route' or 'dispatch'. Not doing anything"}
+    response_body = "Message: Webhook resource is not 'route' or 'dispatch'. Not doing anything"
 
   response = {
           "statusCode": 200,
-          "body": "esto esta bien"
+          "body": response_body
       }
   print({"Response Body": response_body})
   return response
