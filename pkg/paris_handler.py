@@ -12,6 +12,7 @@ class ParisHandler():
     def check_or_create_trucks(self, truck):
         get_trucks = BeetrackAPI.get_trucks(self)
         trucks = get_trucks.get('response').get('trucks')
+        print(trucks)
         if truck not in trucks:
             print({"Handler New Truck": truck})
             new_truck = {"identifier" : truck}
