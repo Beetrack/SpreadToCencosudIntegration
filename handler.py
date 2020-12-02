@@ -16,7 +16,7 @@ def integrate(event, context):
     route_start_at = body.get("started_at")
     print("route_start_at :", route_start_at)
 
-    spread_route = BeetrackAPI(os.environ.get("paris_api_key")).get_route(route_id)
+    spread_route = BeetrackAPI(os.environ.get("spread_api_key")).get_route(route_id)
     print("spread_route :", spread_route)
 
     if not spread_route:
