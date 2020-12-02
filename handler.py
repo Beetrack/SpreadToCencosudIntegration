@@ -48,7 +48,7 @@ def integrate(event, context):
 
   response = {
           "statusCode": 200,
-          "body": response_body
+          "body": "esto esta bien"
       }
   print({"Response Body": response_body})
   return response
