@@ -6,7 +6,7 @@ class BeetrackAPI():
         # En caso de que pase a ser bidireccional cambiar la api key por un parametro a entregar.
         self.base_url = "https://app.beetrack.com/api/external/v1"
         self.api_key = api_key
-        self.headers = {"X-AUTH-TOKEN": self.api_key , "Content-Type" : "Application/json"}
+        self.headers = { "Content-Type" : "application/json","X-AUTH-TOKEN": self.api_key}
 
     def create_route(self, payload):
         url = self.base_url+"/routes"
