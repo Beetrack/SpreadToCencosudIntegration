@@ -1,4 +1,4 @@
-import json,
+import json, os
 from pkg.paris_handler import ParisHandler
 from pkg.beetrack_api import BeetrackAPI
 from pkg.commons import fetch_tag_value
