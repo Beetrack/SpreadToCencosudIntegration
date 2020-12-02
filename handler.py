@@ -12,8 +12,12 @@ def integrate(event, context):
   if (body.get("resource") == "route" and body.get("event") == "start"):
     print({"Handler If Case" : "Start Route"})
     route_id = body.get("route")
+    print("route :", route_id)
     route_start_at = body.get("started_at")
+    print("route_start_at :", route_start_at)
+
     spread_route = BeetrackAPI(os.environ.get("paris_api_key")).get_route(route_id)
+    print("spread_route :", spread_route)
 
     if not spread_route:
       print("Route does not exist or doesn't have any Paris dispatch.")
