@@ -1,4 +1,4 @@
-import json
+import json, os
 from pkg.paris_handler import ParisHandler
 from pkg.beetrack_api import BeetrackAPI
 from pkg.commons import fetch_tag_value
@@ -13,7 +13,7 @@ def integrate(event, context):
     print({"Handler If Case" : "Start Route"})
     route_id = body.get("route")
     route_start_at = body.get("started_at")
-    spread_route = BeetrackAPI("f95b62e621acbdbe8cc3767227313d8999474bae65c82b8a52681e7df1340cc3").get_route(route_id)
+    spread_route = BeetrackAPI(os.environ.get("paris_api_key")).get_route(route_id)
 
     if not spread_route:
       print("Route does not exist or doesn't have any Paris dispatch.")
@@ -28,7 +28,6 @@ def integrate(event, context):
       print(get_paris_dispatches)
       create_route_on_paris = paris.create_new_route(verify_truck, get_paris_dispatches)
       print(create_route_on_paris)
-      ipdb.set_trace()
       new_paris_route_id = create_route_on_paris.get('response').get('route_id')
       print(new_paris_route_id)
       start_paris_route = paris.start_route(new_paris_route_id, route_start_at)

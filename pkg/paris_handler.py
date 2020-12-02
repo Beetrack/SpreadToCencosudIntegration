@@ -6,8 +6,7 @@ class ParisHandler():
 
     def __init__(self, body):
         self.body = body
-        #self.api_key = os.environ('paris_api_key')
-        self.api_key = 'f95b62e621acbdbe8cc3767227313d8999474bae65c82b8a52681e7df1340cc3'
+        self.api_key = os.environ.get("paris_api_key")
         BeetrackAPI.__init__(self, self.api_key)
 
     def check_or_create_trucks(self, truck):
