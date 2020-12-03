@@ -40,6 +40,10 @@ class ParisHandler():
 
     def create_new_route(self, truck, dispatches):
         date = self.body.get('date')
+        print(self.api_key)
+        print(date)
+        print(truck)
+        print(dispatches)
         payload = {
             "truck_identifier": truck, 
             "date": date,
