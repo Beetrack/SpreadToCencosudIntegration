@@ -89,7 +89,7 @@ class ParisHandler():
         status = self.body.get("status")
         substatus_code = self.body.get("substatus")
         sc = substatus_code
-        if status == 1 and sc == "Entrega exitosa":
+        if status == 2 and sc == "Entrega exitosa":
             print("Substatus Homologation : En Cliente")
             return 61
         elif status == 3 and sc == "Sin Moradores":
