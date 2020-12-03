@@ -28,6 +28,8 @@ class ParisHandler():
         spread_dispatches = spread_route.get("response").get("route").get("dispatches")
         paris_dispatches = ignore_none_value(spread_dispatches)
         for dispatch in paris_dispatches:
+            id_route_spread = dispatch.get("route_id")
+            dispatch.update({'tags': [{"name": "id_route_spread","value": id_route_spread}]})
             dispatch.pop('route_id')
             dispatch.pop('status')
             dispatch.pop('status_id')
@@ -75,3 +77,8 @@ class ParisHandler():
         create = BeetrackAPI(self.api_key).update_dispatch(guide_id, payload)
         print({"Beetrack Response" : create})
         return create
+
+    """def finish_route(self, ended_at, route_id, tag_route):
+        payload = {
+            "ended_at" : ended_at
+        }"""
