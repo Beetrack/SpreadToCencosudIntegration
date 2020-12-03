@@ -17,7 +17,7 @@ class BeetrackAPI():
 
     def get_route(self, id):
         print(id)
-        print(self.api_key)
+        print("API KEY TRUCK: ", self.api_key)
         url = self.base_url+ "/routes/" + str(id)
         r = requests.get(url, headers = self.headers).json()
         return r
