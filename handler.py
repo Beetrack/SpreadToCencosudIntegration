@@ -47,12 +47,6 @@ def integrate(event, context):
     else:
       response_body = "Message: Resource is dispatch but event is not update or is not Paris group or status is pending. Not doing anything."
 
-  """elif body.get("resource") == "route" and body.get("event") == "finish":
-    print({"Handler If Case" : "Finish Route"}
-    ended_at = body.get("ended_at")
-    route_id = body.get("route")
-    finish_paris_route = """
-
   else:
     response_body = "Message: Webhook resource is not 'route' or 'dispatch'. Not doing anything"
 
