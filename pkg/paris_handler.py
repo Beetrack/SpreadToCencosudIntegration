@@ -18,7 +18,8 @@ class ParisHandler():
             new_truck = {"identifier" : truck}
             create = BeetrackAPI.create_truck(self,new_truck)
             print({"Beetrack Response" : create})
-            return new_truck
+            
+            return truck
         else:
             return truck
 
