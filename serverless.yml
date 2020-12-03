@@ -5,14 +5,14 @@ custom:
   environmentVariables:
     beetrack_api_keys:
       spread:
-          master: 'f233ca2d404955a6c551e4735f869a5f9206854cef2489d8ee971617da358364'
-          staging: 'f233ca2d404955a6c551e4735f869a5f9206854cef2489d8ee971617da358364'
+          master: "f233ca2d404955a6c551e4735f869a5f9206854cef2489d8ee971617da358364"
+          staging: "f233ca2d404955a6c551e4735f869a5f9206854cef2489d8ee971617da358364"
       paris:
-          master: 'e356fd48f2c849e0d4f40b4f43f388d9772170813cd84c2d4ff58bae65fd110c'
-          staging: 'e356fd48f2c849e0d4f40b4f43f388d9772170813cd84c2d4ff58bae65fd110c'
-      api_key:
-          master: 'SpreadCencoMas'
-          staging: 'SpreadCencoSta'
+          master: "e356fd48f2c849e0d4f40b4f43f388d9772170813cd84c2d4ff58bae65fd110c"
+          staging: "e356fd48f2c849e0d4f40b4f43f388d9772170813cd84c2d4ff58bae65fd110c"
+    api_key:
+        master: "SpreadCencoMas"
+        staging: "SpreadCencoSta"
 
 provider:
   name: aws
