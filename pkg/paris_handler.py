@@ -78,7 +78,11 @@ class ParisHandler():
         print({"Beetrack Response" : create})
         return create
 
-    """def finish_route(self, ended_at, route_id, tag_route):
+    def finish_route(self, ended_at, route_id, tag_route):
         payload = {
             "ended_at" : ended_at
-        }"""
+        }
+        filter_tag = BeetrackAPI.filter_dispatch(self, tag_route, route_id)
+        paris_id_route = filter_tag.get("response")[0].get("route_id")
+        route_finish = BeetrackAPI.update_route(self, paris_id_route, payload)
+        return route_finish

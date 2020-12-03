@@ -46,6 +46,15 @@ def integrate(event, context):
       response_body = "Message: Dispatch was updated with new status"
     else:
       response_body = "Message: Resource is dispatch but event is not update or is not Paris group or status is pending. Not doing anything."
+  
+  elif body.get("resource") == "route" and body.get("event") == "finish":
+    print({"Handler If Case" : "Finish Route"})
+    ended_at = body.get("ended_at")
+    route_id = body.get("route")
+    finish_paris_route = paris.finish_route(ended_at, route_id, 7837)
+    # Econder el 7837 en variable de ambiente.
+    print ({"Beetrack Response for Ending Route" : finish_paris_route})
+    response_body = "Message: Route was Ended"
 
   else:
     response_body = "Message: Webhook resource is not 'route' or 'dispatch'. Not doing anything"
