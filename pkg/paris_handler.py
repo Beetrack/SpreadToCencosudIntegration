@@ -13,6 +13,7 @@ class ParisHandler():
         get_trucks = BeetrackAPI.get_trucks(self)
         trucks = get_trucks.get('response').get('trucks')
         print(trucks)
+        print("API KEY COCT: ", self.api_key)
         if truck not in trucks:
             print({"Handler New Truck": truck})
             new_truck = {"identifier" : truck}
