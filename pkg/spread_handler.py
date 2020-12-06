@@ -5,7 +5,7 @@ class SpreadHandler():
 
     def __init__(self, body):
         self.body = body
-        self.api_key = os.environ.get("spread_group_api_key")
+        self.api_key = os.environ.get("spread_api_key")
         BeetrackAPI.__init__(self, self.api_key)
 
     def check_or_create_trucks(self, truck):
