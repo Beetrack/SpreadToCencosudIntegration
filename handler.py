@@ -31,6 +31,7 @@ def integrate(event, context):
       print("Verify Paris truck on Spread :", verify_spread_truck)
       create_trunk_route_on_spread = spread.create_new_trunk_route(verify_spread_truck, get_trunk_dispatches)
       print("Created trunk route on Spread :", create_trunk_route_on_spread)
+      response_body = "Message: Trunk route was created on Spread"
 
   elif (body.get("resource") == "dispatch" and body.get("event") == "update" and body.get("account_id") == 2575 and body.get("is_trunk") == "true"):
       print({"Handler If Case" : "Update Dispatch"})

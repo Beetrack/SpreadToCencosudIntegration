@@ -26,7 +26,8 @@ class SpreadHandler():
         # Agregar el parametro route_id para hacer el intercambio de identificadores.
         paris_dispatches = paris_route.get("response").get("route").get("dispatches")
         for dispatch in paris_dispatches:
-            if dispatch.get("destination").get("name") == "CT Spread" and dispatch.get("is_trunk") == "true":  
+            print("is_trunk :", dispatch.get("is_trunk"))
+            if dispatch.get("destination").get("name") == "CT Spread" and dispatch.get("is_trunk") == True:  
                 id_route_paris = dispatch.get("route_id")
                 dispatch.update({'tags': [{"name": "id_route_paris","value": id_route_paris}]})
                 dispatch.pop('route_id')
@@ -42,10 +43,10 @@ class SpreadHandler():
 
     def create_new_trunk_route(self, truck, dispatches):
         date = self.body.get('date')
-        print(self.api_key)
-        print(date)
-        print(truck)
-        print(dispatches)
+        print("Api key to create trunk route on Spread", self.api_key)
+        print("Date for the trunk route on Spread:", date)
+        print("Truck asigned to the trunk route on Spread :", truck)
+        print("Dispatches added on trunk route on Spread", dispatches)
         payload = {
             "truck_identifier": truck, 
             "date": date,
