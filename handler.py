@@ -1,5 +1,6 @@
 import json, os
 from pkg.paris_handler import ParisHandler
+from pkg.spread_handler import SpreadHandler
 from pkg.beetrack_api import BeetrackAPI
 from pkg.commons import fetch_tag_value
 
@@ -8,15 +9,41 @@ def integrate(event, context):
   body = json.loads(event['body'])
   print(body)
   paris = ParisHandler(body)
-  
-  if (body.get("resource") == "route" and body.get("event") == "start"):
+  spread = SpreadHandler(body)
+
+  if (body.get("resource") == "route" and body.get("event") == "update" and body.get("account_id") == 2290):
+    paris_route_id = body.get("route")
+    get_paris_route = BeetrackAPI(os.environ.get("paris_api_key")).get_route(paris_route_id)
+    # Ver tema de la llave api
+    get_trunk_dispatches = spread.get_spread_trunk_dispatches(get_paris_route)
+
+    if get_trunk_dispatches == []:
+      print("Trunk route does not belong to Spread or doesn't have any Spread dispatch.")
+      response_body = "Message: Trunk route does not belong to Spread or doesn't have any Spread dispatch."
+
+    else:
+      truck_identifier = "PAR-" + body.get("truck")
+      print(truck_identifier)
+      verify_spread_truck = spread.check_or_create_trucks(truck_identifier)
+      print(verify_spread_truck)
+      create_trunk_route_on_spread = spread.create_new_trunk_route(verify_spread_truck, get_trunk_dispatches)
+      print(create_trunk_route_on_spread)
+
+  elif (body.get("resource") == "dispatch" and body.get("event") == "update" and body.get("account_id") == 2575 and body.get("is_trunk") == "true"):
+      print({"Handler If Case" : "Update Dispatch"})
+      update_trunk_dispatch_on_paris = paris.update_trunk_dispatch()
+      print(update_trunk_dispatch_on_paris)
+      response_body = "Message: Dispatch was updated with new status"
+
+
+  elif (body.get("resource") == "route" and body.get("event") == "start" and body.get("account_id") == 2575):
     print({"Handler If Case" : "Start Route"})
-    route_id = body.get("route")
-    print("route :", route_id)
+    spread_route_id = body.get("route")
+    print("route :", spread_route_id)
     route_start_at = body.get("started_at")
     print("route_start_at :", route_start_at)
 
-    spread_route = BeetrackAPI(os.environ.get("spread_api_key")).get_route(route_id)
+    spread_route = BeetrackAPI(os.environ.get("spread_api_key")).get_route(spread_route_id)
     print("spread_route :", spread_route)
 
     if not spread_route:
@@ -37,7 +64,7 @@ def integrate(event, context):
       print(start_paris_route)
       response_body = "Message: Route was created and Started correctly"
 
-  elif body.get("resource") == "dispatch" and body.get("event") == "update":
+  elif (body.get("resource") == "dispatch" and body.get("event") == "update" and body.get("account_id") == 2575):
     print({"Handler If Case" : "Update Dispatch"})
     group_name = fetch_tag_value(body.get("groups"), "name")
     if group_name == "PARIS" and body.get("status") != 1:
@@ -47,7 +74,7 @@ def integrate(event, context):
     else:
       response_body = "Message: Resource is dispatch but event is not update or is not Paris group or status is pending. Not doing anything."
   
-  elif body.get("resource") == "route" and body.get("event") == "finish":
+  elif (body.get("resource") == "route" and body.get("event") == "finish" and body.get("account_id") == 2575):
     print({"Handler If Case" : "Finish Route"})
     ended_at = body.get("ended_at")
     route_id = body.get("route")

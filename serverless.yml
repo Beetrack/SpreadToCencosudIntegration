@@ -4,9 +4,12 @@ service: SpreadToCencosudIntegration
 custom:
   environmentVariables:
     beetrack_api_keys:
-      spread:
+      spread_group:
           master: "f233ca2d404955a6c551e4735f869a5f9206854cef2489d8ee971617da358364"
           staging: "f233ca2d404955a6c551e4735f869a5f9206854cef2489d8ee971617da358364"
+      spread:
+          master: "3bdf4a4157e5d50fa78e106e6af58f39e6a2f0727632b898cce2917bef2a2d61"
+          staging: "3bdf4a4157e5d50fa78e106e6af58f39e6a2f0727632b898cce2917bef2a2d61"    
       paris:
           master: "e356fd48f2c849e0d4f40b4f43f388d9772170813cd84c2d4ff58bae65fd110c"
           staging: "e356fd48f2c849e0d4f40b4f43f388d9772170813cd84c2d4ff58bae65fd110c"
@@ -24,6 +27,7 @@ provider:
   environment:
     spread_api_key: ${self:custom.environmentVariables.beetrack_api_keys.spread.${self:provider.stage}}
     paris_api_key: ${self:custom.environmentVariables.beetrack_api_keys.paris.${self:provider.stage}}
+    spread_group_api_key: ${self:custom.environmentVariables.beetrack_api_keys.spread_group.${self:provider.stage}}
 
 
 functions:
