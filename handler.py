@@ -10,12 +10,17 @@ def integrate(event, context):
   print(body)
   paris = ParisHandler(body)
   spread = SpreadHandler(body)
+  print("Account ID :", body.get("account_id"))
 
   if (body.get("resource") == "route" and body.get("event") == "update" and body.get("account_id") == 2290):
     paris_route_id = body.get("route")
+    print(paris_route_id)
+    print("Entro la ruta troncal")
     get_paris_route = BeetrackAPI(os.environ.get("paris_api_key")).get_route(paris_route_id)
+    print(get_paris_route)
     # Ver tema de la llave api
     get_trunk_dispatches = spread.get_spread_trunk_dispatches(get_paris_route)
+    print(get_trunk_dispatches)
 
     if get_trunk_dispatches == []:
       print("Trunk route does not belong to Spread or doesn't have any Spread dispatch.")
