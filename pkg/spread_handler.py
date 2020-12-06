@@ -39,6 +39,8 @@ class SpreadHandler():
                 dispatch.pop('min_delivery_time')
                 dispatch.pop('max_delivery_time')
                 dispatch.pop('beecode')
+                dispatch.update({'is_pickup': 'false'})
+                dispatch.update({'is_trunk': 'true'})
         return paris_dispatches
 
     def create_new_trunk_route(self, truck, dispatches):
