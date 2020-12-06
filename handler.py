@@ -14,13 +14,11 @@ def integrate(event, context):
 
   if (body.get("resource") == "route" and body.get("event") == "update" and body.get("account_id") == 2290):
     paris_route_id = body.get("route")
-    print(paris_route_id)
-    print("Entro la ruta troncal")
+    print("Paris trunk route id :", paris_route_id)
     get_paris_route = BeetrackAPI(os.environ.get("paris_api_key")).get_route(paris_route_id)
-    print(get_paris_route)
-    # Ver tema de la llave api
+    print("Paris route with dispatches :", get_paris_route)
     get_trunk_dispatches = spread.get_spread_trunk_dispatches(get_paris_route)
-    print(get_trunk_dispatches)
+    print("Paris trunk route dispatches :", get_trunk_dispatches)
 
     if get_trunk_dispatches == []:
       print("Trunk route does not belong to Spread or doesn't have any Spread dispatch.")
@@ -28,11 +26,11 @@ def integrate(event, context):
 
     else:
       truck_identifier = "PAR-" + body.get("truck")
-      print(truck_identifier)
+      print("Paris vehicle :", truck_identifier)
       verify_spread_truck = spread.check_or_create_trucks(truck_identifier)
-      print(verify_spread_truck)
+      print("Verify Paris truck on Spread :", verify_spread_truck)
       create_trunk_route_on_spread = spread.create_new_trunk_route(verify_spread_truck, get_trunk_dispatches)
-      print(create_trunk_route_on_spread)
+      print("Created trunk route on Spread :", create_trunk_route_on_spread)
 
   elif (body.get("resource") == "dispatch" and body.get("event") == "update" and body.get("account_id") == 2575 and body.get("is_trunk") == "true"):
       print({"Handler If Case" : "Update Dispatch"})
