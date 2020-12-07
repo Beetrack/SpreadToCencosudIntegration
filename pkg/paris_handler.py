@@ -89,14 +89,17 @@ class ParisHandler():
         status = self.body.get("status")
         tags = self.body.get("tags") 
         id_route_paris = fetch_tag_value(tags, "id_route_paris")
+        arrived_at = self.body.get("arrived_at")
         # Ver si van a tener el mismo guide id entre paris y spread.
         payload = {
-            "status" : int(status)
+            "status" : int(status),
+            "place":  "CT Spread",
+            "arrived_at": arrived_at
         }
         # Ver si necesitan los mismos sub-status para la ruta troncal.
         update = BeetrackAPI(self.api_key).update_dispatch(id_route_paris, payload)
         print({"Beetrack Response" : update})
-        return create
+        return update
 
     def homologate_substatus(self):
         status = self.body.get("status")
