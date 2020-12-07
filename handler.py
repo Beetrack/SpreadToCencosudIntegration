@@ -36,7 +36,7 @@ def integrate(event, context):
       print("Created trunk route on Spread :", create_trunk_route_on_spread)
       response_body = "Message: Trunk route was created on Spread"
 
-  elif (body.get("resource") == "dispatch" and body.get("event") == "update" and body.get("account_id") == 2575 and body.get("is_trunk") == "true"):
+  elif (body.get("resource") == "dispatch" and body.get("event") == "update" and body.get("account_id") == 2575 and body.get("is_trunk") == True):
       print({"Handler If Case" : "Update Trunk Dispatch for place :{}".format(body.get("place"))})
       update_trunk_dispatch_on_paris = paris.update_trunk_dispatch()
       print(update_trunk_dispatch_on_paris)
@@ -71,7 +71,7 @@ def integrate(event, context):
       print(start_paris_route)
       response_body = "Message: Route was created and Started correctly"
 
-  elif (body.get("resource") == "dispatch" and body.get("event") == "update" and body.get("account_id") == 2575):
+  elif (body.get("resource") == "dispatch" and body.get("event") == "update" and body.get("account_id") == 2575 and body.get("is_trunk") == False):
     print({"Handler If Case" : "Update Spraed TO Paris Dispatch"})
     group_name = fetch_tag_value(body.get("groups"), "name")
     if group_name == "PARIS" and body.get("status") != 1:
