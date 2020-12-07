@@ -96,6 +96,7 @@ class ParisHandler():
             "place":  "CT Spread",
             "arrived_at": arrived_at
         }
+        print(payload)
         # Ver si necesitan los mismos sub-status para la ruta troncal.
         update = BeetrackAPI(self.api_key).update_dispatch(id_route_paris, payload)
         print({"Beetrack Response" : update})
