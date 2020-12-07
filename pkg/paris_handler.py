@@ -1,6 +1,6 @@
 import os
 from pkg.beetrack_api import BeetrackAPI
-from pkg.commons import ignore_none_value
+from pkg.commons import ignore_none_value, fetch_tag_value
 
 class ParisHandler():
 
@@ -87,14 +87,15 @@ class ParisHandler():
 
     def update_trunk_dispatch(self):
         status = self.body.get("status")
-        guide_id = self.body.get("guide") 
+        tags = self.body.get("tags") 
+        id_route_paris = fetch_tag_value(tags, "id_route_paris")
         # Ver si van a tener el mismo guide id entre paris y spread.
         payload = {
             "status" : int(status)
         }
         # Ver si necesitan los mismos sub-status para la ruta troncal.
-        create = BeetrackAPI(self.api_key).update_dispatch(guide_id, payload)
-        print({"Beetrack Response" : create})
+        update = BeetrackAPI(self.api_key).update_dispatch(id_route_paris, payload)
+        print({"Beetrack Response" : update})
         return create
 
     def homologate_substatus(self):
