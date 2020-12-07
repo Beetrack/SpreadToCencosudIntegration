@@ -88,7 +88,7 @@ class ParisHandler():
     def update_trunk_dispatch(self):
         status = self.body.get("status")
         guide = self.body.get("guide")
-        arrived_at = self.body.get("arrived_at")
+        #arrived_at = self.body.get("arrived_at")
         # Ver si van a tener el mismo guide id entre paris y spread.
         payload = {
             "identifier" : guide,

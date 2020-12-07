@@ -42,7 +42,6 @@ def integrate(event, context):
       print(update_trunk_dispatch_on_paris)
       response_body = "Message: Dispatch was updated with new status"
 
-
   elif (body.get("resource") == "route" and body.get("event") == "start" and body.get("account_id") == 2575):
     print({"Handler If Case" : "Start Route"})
     spread_route_id = body.get("route")
@@ -50,7 +49,7 @@ def integrate(event, context):
     route_start_at = body.get("started_at")
     print("route_start_at :", route_start_at)
 
-    spread_route = BeetrackAPI(os.environ.get("spread_api_key")).get_route(spread_route_id)
+    spread_route = BeetrackAPI(os.environ.get("spread_group_api_key")).get_route(spread_route_id)
     print("spread_route :", spread_route)
 
     if not spread_route:
