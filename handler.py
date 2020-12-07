@@ -19,6 +19,9 @@ def integrate(event, context):
     print("Paris route with dispatches :", get_paris_route)
     get_trunk_dispatches = spread.get_spread_trunk_dispatches(get_paris_route)
     print("Paris trunk route dispatches :", get_trunk_dispatches)
+    print(get_trunk_dispatches[0].get("is_trunk"))
+    print(get_trunk_dispatches[1].get("is_trunk"))
+    print(get_trunk_dispatches[2].get("is_trunk"))
 
     if get_trunk_dispatches == []:
       print("Trunk route does not belong to Spread or doesn't have any Spread dispatch.")
