@@ -77,6 +77,7 @@ class ParisHandler():
                 "status" : int(status),
                 "substatus_code" : substatus
             }
+        print(payload)
         create = BeetrackAPI(self.api_key).update_dispatch(guide_id, payload)
         print({"Beetrack Response" : create})
         return create
