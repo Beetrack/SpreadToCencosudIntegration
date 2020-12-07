@@ -24,12 +24,13 @@ class ParisHandler():
             return truck
 
     def create_paris_dispatches(self, spread_route):
-        # Agregar el parametro route_id para hacer el intercambio de identificadores.
         spread_dispatches = spread_route.get("response").get("route").get("dispatches")
         paris_dispatches = ignore_none_value(spread_dispatches)
         for dispatch in paris_dispatches:
             id_route_spread = dispatch.get("route_id")
-            dispatch.update({'tags': [{"name": "id_route_spread","value": id_route_spread}]})
+            id_dispatch_paris = dispatch.get("dispatch_id")
+            dispatch.update({'tags': [{"name": "id_route_spread","value": id_route_spread},
+            {"name": "id_dispatch_paris","value": id_dispatch_paris}]})
             dispatch.pop('route_id')
             dispatch.pop('status')
             dispatch.pop('status_id')
@@ -77,9 +78,8 @@ class ParisHandler():
                 "status" : int(status),
                 "substatus_code" : substatus
             }
-        print(payload)
         create = BeetrackAPI(self.api_key).update_dispatch(guide_id, payload)
-        print({"Beetrack Response" : create})
+        print({"Beetrack Response" : create},{"Payload to update" : payload})
         return create
 
     def finish_route(self, ended_at, route_id, tag_route):
@@ -94,17 +94,16 @@ class ParisHandler():
     def update_trunk_dispatch(self):
         status = self.body.get("status")
         guide = self.body.get("guide")
-        #arrived_at = self.body.get("arrived_at")
-        # Ver si van a tener el mismo guide id entre paris y spread.
+        #tags = self.body.get("tags")
+        #id_dispatch_paris = fetch_tag_value(tags, "id_dispatch_paris")
         payload = {
             "identifier" : guide,
             "status" : int(status),
             "place":  "CT Spread"
         }
         print(payload)
-        # Ver si necesitan los mismos sub-status para la ruta troncal.
         update = BeetrackAPI(self.api_key).update_dispatch(guide, payload)
-        print({"Beetrack Response" : update})
+        print({"Request payload" : payload},{"Beetrack Response" : update})
         return update
 
     def homologate_substatus(self):

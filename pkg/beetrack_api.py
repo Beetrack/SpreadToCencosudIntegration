@@ -9,15 +9,11 @@ class BeetrackAPI():
         self.headers = { "Content-Type" : "application/json","X-AUTH-TOKEN": self.api_key}
 
     def create_route(self, payload):
-        print(self.api_key)
-        print(payload)
         url = self.base_url+"/routes"
         r = requests.post(url, json = payload, headers = self.headers).json()
         return r
 
     def get_route(self, id):
-        print(id)
-        print("API KEY TRUCK: ", self.api_key)
         url = self.base_url+ "/routes/" + str(id)
         r = requests.get(url, headers = self.headers).json()
         return r

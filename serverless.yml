@@ -5,17 +5,28 @@ custom:
   environmentVariables:
     beetrack_api_keys:
       spread_group:
-          master: "f233ca2d404955a6c551e4735f869a5f9206854cef2489d8ee971617da358364"
-          staging: "f233ca2d404955a6c551e4735f869a5f9206854cef2489d8ee971617da358364"
+        master: "f233ca2d404955a6c551e4735f869a5f9206854cef2489d8ee971617da358364"
+        staging: "f233ca2d404955a6c551e4735f869a5f9206854cef2489d8ee971617da358364"
       spread:
-          master: "3bdf4a4157e5d50fa78e106e6af58f39e6a2f0727632b898cce2917bef2a2d61"
-          staging: "3bdf4a4157e5d50fa78e106e6af58f39e6a2f0727632b898cce2917bef2a2d61"    
+        master: "3bdf4a4157e5d50fa78e106e6af58f39e6a2f0727632b898cce2917bef2a2d61"
+        staging: "3bdf4a4157e5d50fa78e106e6af58f39e6a2f0727632b898cce2917bef2a2d61"    
       paris:
-          master: "e356fd48f2c849e0d4f40b4f43f388d9772170813cd84c2d4ff58bae65fd110c"
-          staging: "e356fd48f2c849e0d4f40b4f43f388d9772170813cd84c2d4ff58bae65fd110c"
+        master: "e356fd48f2c849e0d4f40b4f43f388d9772170813cd84c2d4ff58bae65fd110c"
+        staging: "e356fd48f2c849e0d4f40b4f43f388d9772170813cd84c2d4ff58bae65fd110c"
     api_key:
-        master: "SpreadCencoMas"
-        staging: "SpreadCencoSta"
+      master: "SpreadCencoMas"
+      staging: "SpreadCencoSta"
+    tag_route:
+      master: "7837"
+      staging: "7837"
+    account_id_spread:
+      master: "2575"
+      staging: "2575"
+    account_id_paris:
+      master: "2290"
+      staging: "2290"
+
+
 
 provider:
   name: aws
@@ -28,6 +39,9 @@ provider:
     spread_api_key: ${self:custom.environmentVariables.beetrack_api_keys.spread.${self:provider.stage}}
     paris_api_key: ${self:custom.environmentVariables.beetrack_api_keys.paris.${self:provider.stage}}
     spread_group_api_key: ${self:custom.environmentVariables.beetrack_api_keys.spread_group.${self:provider.stage}}
+    tag_route: ${self:custom.environmentVariables.tag_route.${self:provider.stage}}
+    account_id_spread: ${self:custom.environmentVariables.account_id_spread.${self:provider.stage}}
+    account_id_paris: ${self:custom.environmentVariables.account_id_paris.${self:provider.stage}}
 
 
 functions:
