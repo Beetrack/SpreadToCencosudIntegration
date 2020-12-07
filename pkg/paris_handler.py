@@ -91,9 +91,9 @@ class ParisHandler():
         arrived_at = self.body.get("arrived_at")
         # Ver si van a tener el mismo guide id entre paris y spread.
         payload = {
+            "identifier" : guide,
             "status" : int(status),
-            "place":  "CT Spread",
-            "arrived_at": arrived_at
+            "place":  "CT Spread"
         }
         print(payload)
         # Ver si necesitan los mismos sub-status para la ruta troncal.
