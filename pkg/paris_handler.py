@@ -87,8 +87,7 @@ class ParisHandler():
 
     def update_trunk_dispatch(self):
         status = self.body.get("status")
-        tags = self.body.get("tags") 
-        id_route_paris = fetch_tag_value(tags, "id_route_paris")
+        guide = self.body.get("guide")
         arrived_at = self.body.get("arrived_at")
         # Ver si van a tener el mismo guide id entre paris y spread.
         payload = {
@@ -98,7 +97,7 @@ class ParisHandler():
         }
         print(payload)
         # Ver si necesitan los mismos sub-status para la ruta troncal.
-        update = BeetrackAPI(self.api_key).update_dispatch(id_route_paris, payload)
+        update = BeetrackAPI(self.api_key).update_dispatch(guide, payload)
         print({"Beetrack Response" : update})
         return update
 
