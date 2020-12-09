@@ -8,6 +8,6 @@ def ignore_none_value(values):
 
 def fetch_tag_value(array, tag_name):
     for item in array:
-      if tag_name in item:
-        return item[tag_name]
+      if tag_name == item['name']:
+        return item['value']
     return None

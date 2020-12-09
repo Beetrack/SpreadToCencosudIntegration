@@ -12,9 +12,7 @@ def integrate(event, context):
   spread = SpreadHandler(body)
   account_id_spread = os.environ.get("account_id_spread")
   account_id_paris = os.environ.get("account_id_paris")
-  print(account_id_spread, account_id_paris)
   print("Account ID :", body.get("account_id"))
-  print(body.get("resource"),body.get("event"),body.get("account_id"))
 
   if (body.get("resource") == "route" and body.get("event") == "update" and body.get("account_id") == int(account_id_paris)):
     paris_route_id = body.get("route")
@@ -42,7 +40,6 @@ def integrate(event, context):
     update_dispatch_id_on_spread = spread.get_id_dispatch_spread()
     print(update_dispatch_id_on_spread)
     response_body = "Message: Dispatch was updated on Spread with the id dispatch on Paris"
-
 
   elif (body.get("resource") == "dispatch" and body.get("event") == "update" and body.get("account_id") == int(account_id_spread) and body.get("is_trunk") == True):
     print({"Handler If Case" : "Update Trunk Dispatch"})
