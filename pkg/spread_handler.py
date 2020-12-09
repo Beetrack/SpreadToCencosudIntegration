@@ -11,8 +11,6 @@ class SpreadHandler():
     def check_or_create_trucks(self, truck):
         get_trucks = BeetrackAPI.get_trucks(self)
         trucks = get_trucks.get('response').get('trucks')
-        print(trucks)
-        print("API KEY COCT: ", self.api_key)
         if truck not in trucks:
             print({"Handler New Truck": truck})
             new_truck = {"identifier" : truck}
@@ -26,7 +24,6 @@ class SpreadHandler():
         # Agregar el parametro route_id para hacer el intercambio de identificadores.
         paris_dispatches = paris_route.get("response").get("route").get("dispatches")
         for dispatch in paris_dispatches:
-            print("is_trunk :", dispatch.get("is_trunk"))
             if dispatch.get("destination").get("name") == "CT Spread" and dispatch.get("is_trunk") == True:  
                 id_route_paris = dispatch.get("route_id")
                 id_dispatch_paris = dispatch.get("dispatch_id")

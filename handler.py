@@ -40,7 +40,6 @@ def integrate(event, context):
   elif (body.get("resource") == "dispatch" and body.get("event") == "update" and body.get("account_id") == int(account_id_spread) and body.get("is_trunk") == True):
       print({"Handler If Case" : "Update Trunk Dispatch"})
       update_trunk_dispatch_on_paris = paris.update_trunk_dispatch()
-      print()
       response_body = "Message: Dispatch was updated with new status"
 
   elif (body.get("resource") == "route" and body.get("event") == "start" and body.get("account_id") == int(account_id_spread)):
