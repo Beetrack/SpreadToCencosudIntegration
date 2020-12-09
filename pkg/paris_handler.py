@@ -93,8 +93,8 @@ class ParisHandler():
         status = self.body.get("status")
         guide = self.body.get("guide")
         tags = self.body.get("tags")
-        id_dispatch_paris = fetch_tag_value(tags, "id_dispatch_paris")
         print(tags)
+        id_dispatch_paris = fetch_tag_value(tags, "id_dispatch_paris")
         print(id_dispatch_paris)
         payload = {
             "status" : int(status),

@@ -62,6 +62,7 @@ class SpreadHandler():
         guide = self.body.get("guide")
         id_dispatch = self.body.get("dispatch_id")
         payload = {
+            "is_trunk": True,
             "tags": [{"name": "id_dispatch_paris","value": id_dispatch}]
         }
         update_dispatch = BeetrackAPI.update_dispatch(self, guide, payload)
