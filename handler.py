@@ -36,11 +36,17 @@ def integrate(event, context):
       create_trunk_route_on_spread = spread.create_new_trunk_route(verify_spread_truck, get_trunk_dispatches)
       print("Response after creating a Paris trunk route in Spread :", create_trunk_route_on_spread)
       response_body = "Message: Trunk route was created on Spread"
+  
+  elif (body.get("resource") == "dispatch" and body.get("event") == "update" and body.get("account_id") == int(account_id_paris) and body.get("is_trunk") == True and body.get("status") == 1):
+    update_dispatch_id_on_spread = spread.get_id_dispatch_spread()
+    print(update_dispatch_id_on_spread)
+
 
   elif (body.get("resource") == "dispatch" and body.get("event") == "update" and body.get("account_id") == int(account_id_spread) and body.get("is_trunk") == True):
-      print({"Handler If Case" : "Update Trunk Dispatch"})
-      update_trunk_dispatch_on_paris = paris.update_trunk_dispatch()
-      response_body = "Message: Dispatch was updated with new status"
+    print({"Handler If Case" : "Update Trunk Dispatch"})
+    update_trunk_dispatch_on_paris = paris.update_trunk_dispatch()
+    print(update_trunk_dispatch_on_paris)
+    response_body = "Message: Dispatch was updated with new status"
 
   elif (body.get("resource") == "route" and body.get("event") == "start" and body.get("account_id") == int(account_id_spread)):
     print({"Handler If Case" : "Start Route"})

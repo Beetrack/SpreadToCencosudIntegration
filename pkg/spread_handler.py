@@ -57,3 +57,12 @@ class SpreadHandler():
         create_route = BeetrackAPI.create_route(self,payload)
         print ({"Beetrack Response for Creating Route" : create_route})
         return create_route
+
+    def get_id_dispatch_spread(self):
+        guide = self.body("guide")
+        id_dispatch = self.body("dispatch_id")
+        payload = {
+            "tags": [{"name": "id_dispatch_paris","value": id_dispatch}]
+        }
+        update_dispatch = BeetrackAPI.update_dispatch(self, guide, payload)
+        return update_dispatch

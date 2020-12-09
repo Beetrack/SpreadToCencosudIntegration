@@ -28,9 +28,7 @@ class ParisHandler():
         paris_dispatches = ignore_none_value(spread_dispatches)
         for dispatch in paris_dispatches:
             id_route_spread = dispatch.get("route_id")
-            id_dispatch_paris = dispatch.get("dispatch_id")
-            dispatch.update({'tags': [{"name": "id_route_spread","value": id_route_spread},
-            {"name": "id_dispatch_paris","value": id_dispatch_paris}]})
+            dispatch.update({'tags': [{"name": "id_route_spread","value": id_route_spread}]})
             dispatch.pop('route_id')
             dispatch.pop('status')
             dispatch.pop('status_id')
@@ -167,6 +165,3 @@ class ParisHandler():
                 return 53
             else: 
                 print("Not substatus code to homologate or not homologation for the substatus code")
-
-    
-
