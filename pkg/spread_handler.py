@@ -59,8 +59,8 @@ class SpreadHandler():
         return create_route
 
     def get_id_dispatch_spread(self):
-        guide = self.body("guide")
-        id_dispatch = self.body("dispatch_id")
+        guide = self.body.get("guide")
+        id_dispatch = self.body.get("dispatch_id")
         payload = {
             "tags": [{"name": "id_dispatch_paris","value": id_dispatch}]
         }
