@@ -2,7 +2,7 @@ import json, os
 from pkg.paris_handler import ParisHandler
 from pkg.spread_handler import SpreadHandler
 from pkg.beetrack_api import BeetrackAPI
-from pkg.commons import fetch_tag_value
+from pkg.commons import fetch_tag_value, fetch_tag
 
 def integrate(event, context):
   print(event)
@@ -74,7 +74,7 @@ def integrate(event, context):
 
   elif (body.get("resource") == "dispatch" and body.get("event") == "update" and body.get("account_id") == int(account_id_spread) and body.get("is_trunk") == False):
     print({"Handler If Case" : "Update Spraed dispatches on Paris"})
-    group_name = fetch_tag_value(body.get("groups"), "name")
+    group_name = fetch_tag(body.get("groups"), "name")
     if group_name == "PARIS" and body.get("status") != 1:
       update_dispatch_on_paris = paris.update_dispatch()
       print("Respnse for updating Spread dispatches on Paris :",update_dispatch_on_paris)
