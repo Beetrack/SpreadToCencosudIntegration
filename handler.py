@@ -12,6 +12,7 @@ def integrate(event, context):
   spread = SpreadHandler(body)
   account_id_spread = os.environ.get("account_id_spread")
   account_id_paris = os.environ.get("account_id_paris")
+  print(account_id_spread, account_id_paris)
   print("Account ID :", body.get("account_id"))
 
   if (body.get("resource") == "route" and body.get("event") == "update" and body.get("account_id") == account_id_paris):
