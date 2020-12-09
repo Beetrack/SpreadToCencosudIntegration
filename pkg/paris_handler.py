@@ -92,12 +92,12 @@ class ParisHandler():
     def update_trunk_dispatch(self):
         status = self.body.get("status")
         guide = self.body.get("guide")
-        #tags = self.body.get("tags")
-        #id_dispatch_paris = fetch_tag_value(tags, "id_dispatch_paris")
+        tags = self.body.get("tags")
+        id_dispatch_paris = fetch_tag_value(tags, "id_dispatch_paris")
         payload = {
-            "identifier" : guide,
             "status" : int(status),
-            "place":  "CT Spread"
+            "place":  "CT Spread",
+            "dispatch_id" : int(id_dispatch_paris)
         }
         print(payload)
         update = BeetrackAPI(self.api_key).update_dispatch(guide, payload)

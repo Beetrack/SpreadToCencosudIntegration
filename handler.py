@@ -38,7 +38,7 @@ def integrate(event, context):
       response_body = "Message: Trunk route was created on Spread"
   
   elif (body.get("resource") == "dispatch" and body.get("event") == "update" and body.get("account_id") == int(account_id_paris) and body.get("is_trunk") == True and body.get("status") == 1):
-    print("hola Agustin")
+    print({"Handler If Case" : "Update Trunk Dispatch With Paris Id Dispatch"})
     update_dispatch_id_on_spread = spread.get_id_dispatch_spread()
     print(update_dispatch_id_on_spread)
     response_body = "Message: Dispatch was updated on Spread with the id dispatch on Paris"
