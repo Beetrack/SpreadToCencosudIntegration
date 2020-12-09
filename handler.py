@@ -37,13 +37,13 @@ def integrate(event, context):
       print("Response after creating a Paris trunk route in Spread :", create_trunk_route_on_spread)
       response_body = "Message: Trunk route was created on Spread"
 
-  elif (body.get("resource") == "dispatch" and body.get("event") == "update" and body.get("account_id") == account_id_spread and body.get("is_trunk") == True):
+  elif (body.get("resource") == "dispatch" and body.get("event") == "update" and body.get("account_id") == int(account_id_spread) and body.get("is_trunk") == True):
       print({"Handler If Case" : "Update Trunk Dispatch"})
       update_trunk_dispatch_on_paris = paris.update_trunk_dispatch()
       print()
       response_body = "Message: Dispatch was updated with new status"
 
-  elif (body.get("resource") == "route" and body.get("event") == "start" and body.get("account_id") == account_id_spread):
+  elif (body.get("resource") == "route" and body.get("event") == "start" and body.get("account_id") == int(account_id_spread)):
     print({"Handler If Case" : "Start Route"})
     spread_route_id = body.get("route")
     route_start_at = body.get("started_at")
@@ -68,7 +68,7 @@ def integrate(event, context):
       print("Response after starting Spread rute on Paris :", start_paris_route)
       response_body = "Message: Route was created and Started correctly"
 
-  elif (body.get("resource") == "dispatch" and body.get("event") == "update" and body.get("account_id") == account_id_spread and body.get("is_trunk") == False):
+  elif (body.get("resource") == "dispatch" and body.get("event") == "update" and body.get("account_id") == int(account_id_spread) and body.get("is_trunk") == False):
     print({"Handler If Case" : "Update Spraed dispatches on Paris"})
     group_name = fetch_tag_value(body.get("groups"), "name")
     if group_name == "PARIS" and body.get("status") != 1:
@@ -78,11 +78,11 @@ def integrate(event, context):
     else:
       response_body = "Message: Resource is dispatch but event is not update or is not Paris group or status is pending. Not doing anything."
   
-  elif (body.get("resource") == "route" and body.get("event") == "finish" and body.get("account_id") == account_id_spread):
+  elif (body.get("resource") == "route" and body.get("event") == "finish" and body.get("account_id") == int(account_id_spread)):
     print({"Handler If Case" : "Finish Route"})
     ended_at = body.get("ended_at")
     route_id = body.get("route")
-    finish_paris_route = paris.finish_route(ended_at, route_id, os.environ.get("tag_route"))
+    finish_paris_route = paris.finish_route(ended_at, route_id, int(os.environ.get("tag_route")))
     print ({"Beetrack Response for Ending Route" : finish_paris_route})
     response_body = "Message: Route was Ended"
 
