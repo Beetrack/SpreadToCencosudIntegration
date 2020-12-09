@@ -5,27 +5,30 @@ from pkg.beetrack_api import BeetrackAPI
 from pkg.commons import fetch_tag_value, fetch_tag
 
 def integrate(event, context):
-  print(event)
+  print({"Event": event})
   body = json.loads(event['body'])
-  print(body)
+  print({"Body": body})
   paris = ParisHandler(body)
   spread = SpreadHandler(body)
   account_id_spread = os.environ.get("account_id_spread")
   account_id_paris = os.environ.get("account_id_paris")
-  print("Account ID :", body.get("account_id"))
+  account_id = body.get("account_id")
+  resource = body.get("resource")
+  event = body.get("event")
+  is_trunk = body.get("is_trunk")
+  print({"Event from Account ID": account_id})
 
-  if (body.get("resource") == "route" and body.get("event") == "update" and body.get("account_id") == int(account_id_paris)):
+  if (resource == "route" and event == "update" and account_id == int(account_id_paris)):
+    print({"Handler if casa": "Update Route for Paris"})
     paris_route_id = body.get("route")
-    print("Paris trunk route id :", paris_route_id)
+    print({"Paris Route ID": paris_route_id})
     get_paris_route = BeetrackAPI(os.environ.get("paris_api_key")).get_route(paris_route_id)
-    print("Paris route including dispatches :", get_paris_route)
+    print({"Paris Route Info": get_paris_route})
     get_trunk_dispatches = spread.get_spread_trunk_dispatches(get_paris_route)
-    print("Paris trunk route dispatches :", get_trunk_dispatches)
-
+    print({"Paris Route Trunk Dispatches": get_trunk_dispatches})
     if get_trunk_dispatches == []:
-      print("Paris trunk route does not belong to Spread or doesn't have any Spread dispatch.")
+      print("Paris trunk route does not belong to Spread or doesn't have any Spread dispatches.")
       response_body = "Message: Trunk route does not belong to Spread or doesn't have any Spread dispatch."
-
     else:
       truck_identifier = "PAR-" + body.get("truck")
       print("Paris vehicle on Spread :", truck_identifier)
@@ -35,19 +38,19 @@ def integrate(event, context):
       print("Response after creating a Paris trunk route in Spread :", create_trunk_route_on_spread)
       response_body = "Message: Trunk route was created on Spread"
   
-  elif (body.get("resource") == "dispatch" and body.get("event") == "update" and body.get("account_id") == int(account_id_paris) and body.get("is_trunk") == True and body.get("status") == 1):
-    print({"Handler If Case" : "Update Trunk Dispatch With Paris Id Dispatch"})
+  elif (resource == "dispatch" and event == "update" and account_id == int(account_id_paris) and is_trunk == True and body.get("status") == 1):
+    print({"Handler If Case" : "Paris Update Dispatch for adding ID Dispatch on Spread Trunks"})
     update_dispatch_id_on_spread = spread.get_id_dispatch_spread()
-    print(update_dispatch_id_on_spread)
+    print({"Update Dispatch Response": update_dispatch_id_on_spread})
     response_body = "Message: Dispatch was updated on Spread with the id dispatch on Paris"
 
-  elif (body.get("resource") == "dispatch" and body.get("event") == "update" and body.get("account_id") == int(account_id_spread) and body.get("is_trunk") == True):
-    print({"Handler If Case" : "Update Trunk Dispatch"})
+  elif (resource == "dispatch" and event == "update" and account_id == int(account_id_spread) and is_trunk == True):
+    print({"Handler If Case" : "Update Trunk Dispatch in Paris"})
     update_trunk_dispatch_on_paris = paris.update_trunk_dispatch()
-    print(update_trunk_dispatch_on_paris)
-    response_body = "Message: Dispatch was updated with new status"
+    print({"Update Dispatch Response": update_trunk_dispatch_on_paris})
+    response_body = "Message: Dispatch was updated in Paris succesfully with new status"
 
-  elif (body.get("resource") == "route" and body.get("event") == "start" and body.get("account_id") == int(account_id_spread)):
+  elif (resource == "route" and event == "start" and account_id == int(account_id_spread)):
     print({"Handler If Case" : "Start Route"})
     spread_route_id = body.get("route")
     route_start_at = body.get("started_at")
@@ -72,17 +75,17 @@ def integrate(event, context):
       print("Response after starting Spread rute on Paris :", start_paris_route)
       response_body = "Message: Route was created and Started correctly"
 
-  elif (body.get("resource") == "dispatch" and body.get("event") == "update" and body.get("account_id") == int(account_id_spread) and body.get("is_trunk") == False):
+  elif (resource == "dispatch" and event== "update" and account_id == int(account_id_spread) and is_trunk == False):
     print({"Handler If Case" : "Update Spraed dispatches on Paris"})
     group_name = fetch_tag(body.get("groups"), "name")
     if group_name == "PARIS" and body.get("status") != 1:
       update_dispatch_on_paris = paris.update_dispatch()
-      print("Respnse for updating Spread dispatches on Paris :",update_dispatch_on_paris)
+      print("Response for updating Spread dispatches on Paris :",update_dispatch_on_paris)
       response_body = "Message: Dispatch was updated with new status"
     else:
       response_body = "Message: Resource is dispatch but event is not update or is not Paris group or status is pending. Not doing anything."
   
-  elif (body.get("resource") == "route" and body.get("event") == "finish" and body.get("account_id") == int(account_id_spread)):
+  elif (resource == "route" and event == "finish" and account_id == int(account_id_spread)):
     print({"Handler If Case" : "Finish Route"})
     ended_at = body.get("ended_at")
     route_id = body.get("route")
