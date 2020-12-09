@@ -7,6 +7,8 @@ def ignore_none_value(values):
     return not_none_value
 
 def fetch_tag_value(array, tag_name):
+    print(array, type(array))
+    print(tag_name, type(tag_name))
     for item in array:
       if tag_name == item['name']:
         return item['value']
