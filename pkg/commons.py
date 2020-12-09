@@ -10,6 +10,7 @@ def fetch_tag_value(array, tag_name):
     print(array, type(array))
     print(tag_name, type(tag_name))
     for item in array:
+        print(item)
       if tag_name == item['name']:
         return item['value']
     return None
