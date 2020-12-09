@@ -14,6 +14,7 @@ def integrate(event, context):
   account_id_paris = os.environ.get("account_id_paris")
   print(account_id_spread, account_id_paris)
   print("Account ID :", body.get("account_id"))
+  print(body.get("resource"),body.get("event"),body.get("account_id"))
 
   if (body.get("resource") == "route" and body.get("event") == "update" and body.get("account_id") == account_id_paris):
     paris_route_id = body.get("route")
