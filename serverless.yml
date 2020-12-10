@@ -23,8 +23,8 @@ custom:
       master: "2237"
       staging: "2237"
     account_id_paris:
-      master: "2575"
-      staging: "2575"
+      master: "17"
+      staging: "17"
 
 
 
