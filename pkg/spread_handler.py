@@ -8,13 +8,13 @@ class SpreadHandler():
         self.api_key = os.environ.get("spread_api_key")
         BeetrackAPI.__init__(self, self.api_key)
 
-    def check_or_create_trucks(self, truck):
-        get_trucks = BeetrackAPI.get_trucks(self)
+    def check_or_create_trucks(self, truck, account_id):
+        get_trucks = BeetrackAPI.get_trucks(self, account_id)
         trucks = get_trucks.get('response').get('trucks')
         if truck not in trucks:
             print({"Handler New Truck": truck})
             new_truck = {"identifier" : truck}
-            create = BeetrackAPI.create_truck(self,new_truck)
+            create = BeetrackAPI.create_truck(self,new_truck, account_id)
             print({"Beetrack Response" : create})
             return truck
         else:
@@ -41,7 +41,7 @@ class SpreadHandler():
                 dispatch.update({'destination': 'CT Spread'})
         return paris_dispatches
 
-    def create_new_trunk_route(self, truck, dispatches):
+    def create_new_trunk_route(self, truck, dispatches, account_id):
         date = self.body.get('date')
         payload = {
             "truck_identifier": truck, 
@@ -49,11 +49,11 @@ class SpreadHandler():
             "dispatches": dispatches
         }
         print({"New Trunk Route Payload": payload})
-        create_route = BeetrackAPI.create_route(self,payload)
+        create_route = BeetrackAPI.create_route(self,payload, account_id)
         print ({"Beetrack Response for Creating Route" : create_route})
         return create_route
 
-    def get_id_dispatch_spread(self):
+    def get_id_dispatch_spread(self, account_id):
         guide = self.body.get("guide")
         id_dispatch = self.body.get("dispatch_id")
         payload = {
@@ -61,5 +61,5 @@ class SpreadHandler():
             "tags": [{"name": "id_dispatch_paris","value": id_dispatch}]
         }
         print ({"Updating ID Dispatch Payload" : payload})
-        update_dispatch = BeetrackAPI.update_dispatch(self, guide, payload)
+        update_dispatch = BeetrackAPI.update_dispatch(self, guide, payload, account_id)
         return update_dispatch
