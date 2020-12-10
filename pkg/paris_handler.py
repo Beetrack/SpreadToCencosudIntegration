@@ -62,8 +62,11 @@ class ParisHandler():
 
     def update_dispatch(self):
         status = self.body.get("status")
+        print(status)
         guide_id = self.body.get("guide") 
+        print(guide_id)
         substatus = self.homologate_substatus()
+        print(substatus)
         if substatus == True:
             payload = {
             "status" : int(status)
