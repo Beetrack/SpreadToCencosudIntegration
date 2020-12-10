@@ -78,7 +78,7 @@ def integrate(event, context):
   elif (resource == "dispatch" and event== "update" and account_id == int(account_id_spread) and is_trunk == False):
     print({"Handler If Case" : "Update Spraed dispatches on Paris"})
     group_name = fetch_tag(body.get("groups"), "name")
-    if group_name == "PARIS" and body.get("status") != 1:
+    if group_name == "Paris" and body.get("status") != 1:
       update_dispatch_on_paris = paris.update_dispatch(account_id)
       print("Response for updating Spread dispatches on Paris :",update_dispatch_on_paris)
       response_body = "Message: Dispatch was updated with new status"

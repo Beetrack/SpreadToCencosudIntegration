@@ -11,14 +11,14 @@ custom:
         master: "3bdf4a4157e5d50fa78e106e6af58f39e6a2f0727632b898cce2917bef2a2d61"
         staging: "3bdf4a4157e5d50fa78e106e6af58f39e6a2f0727632b898cce2917bef2a2d61"    
       paris:
-        master: "e356fd48f2c849e0d4f40b4f43f388d9772170813cd84c2d4ff58bae65fd110c"
-        staging: "e356fd48f2c849e0d4f40b4f43f388d9772170813cd84c2d4ff58bae65fd110c"
+        master: "39650708b26010c236c68aa3c581d4fe63539eeb67a53ce37ab6d230a30c10e4"
+        staging: "39650708b26010c236c68aa3c581d4fe63539eeb67a53ce37ab6d230a30c10e4"
     api_key:
       master: "SpreadCencoMas"
       staging: "SpreadCencoSta"
     tag_route:
-      master: "7837"
-      staging: "7837"
+      master: "4807"
+      staging: "4807"
     account_id_spread:
       master: "2575"
       staging: "2575"
