@@ -7,15 +7,16 @@ class ParisHandler():
     def __init__(self, body):
         self.body = body
         self.api_key = os.environ.get("paris_api_key")
-        BeetrackAPI.__init__(self, self.api_key)
+        self.base_url = "https://app.beetrack.dev/api/external/v1"
+        BeetrackAPI.__init__(self, self.api_key, self.base_url)
 
-    def check_or_create_trucks(self, truck, account_id):
-        get_trucks = BeetrackAPI.get_trucks(self, account_id)
+    def check_or_create_trucks(self, truck):
+        get_trucks = BeetrackAPI.get_trucks(self)
         trucks = get_trucks.get('response').get('trucks')
         if truck not in trucks:
             print({"Handler New Truck": truck})
             new_truck = {"identifier" : truck}
-            create = BeetrackAPI.create_truck(self,new_truck, account_id)
+            create = BeetrackAPI.create_truck(self,new_truck)
             print({"Beetrack NT Response" : create})
             return truck
         else:
@@ -38,7 +39,7 @@ class ParisHandler():
             dispatch.pop('beecode')
         return paris_dispatches
 
-    def create_new_route(self, truck, dispatches, account_id):
+    def create_new_route(self, truck, dispatches):
         date = self.body.get('date')
         payload = {
             "truck_identifier": truck, 
@@ -46,20 +47,20 @@ class ParisHandler():
             "dispatches": dispatches
         }
         print({"New Route Payload": payload})
-        create_route = BeetrackAPI.create_route(self,payload, account_id)
+        create_route = BeetrackAPI.create_route(self,payload)
         print ({"Beetrack Response for Creating Route" : create_route})
         return create_route
 
-    def start_route(self, route_id, started_at, account_id):
+    def start_route(self, route_id, started_at):
         payload = {
             "started_at": started_at
         }
         print({"Started At Update Payload": payload})
-        route_start = BeetrackAPI.update_route(self,route_id, payload, account_id)
+        route_start = BeetrackAPI.update_route(self,route_id, payload)
         print ({"Beetrack Response for Starting Route" : route_start})
         return route_start
 
-    def update_dispatch(self, account_id):
+    def update_dispatch(self):
         status = self.body.get("status")
         guide_id = self.body.get("guide") 
         substatus = self.homologate_substatus()
@@ -73,22 +74,22 @@ class ParisHandler():
                 "substatus_code" : substatus
             }
         print({"Update Dispatch Status Payload": payload})
-        create = BeetrackAPI(self.api_key).update_dispatch(guide_id, payload, account_id)
+        create = BeetrackAPI(self.api_key, self.base_url).update_dispatch(guide_id, payload)
         print({"Beetrack Response" : create},{"Payload to update" : payload})
         return create
 
-    def finish_route(self, ended_at, route_id, tag_route, account_id):
+    def finish_route(self, ended_at, route_id, tag_route):
         payload = {
             "ended_at" : ended_at
         }
         print({"Ended At Update Payload": payload})
-        filter_tag = BeetrackAPI.filter_dispatch(self, tag_route, route_id, account_id)
+        filter_tag = BeetrackAPI.filter_dispatch(self, tag_route, route_id)
         paris_id_route = filter_tag.get("response")[0].get("route_id")
-        route_finish = BeetrackAPI.update_route(self, paris_id_route, payload, account_id)
+        route_finish = BeetrackAPI.update_route(self, paris_id_route, payload)
         print ({"Beetrack Response for Starting Route" : route_finish})
         return route_finish
 
-    def update_trunk_dispatch(self, account_id):
+    def update_trunk_dispatch(self):
         status = self.body.get("status")
         guide = self.body.get("guide")
         tags = self.body.get("tags")
@@ -101,7 +102,7 @@ class ParisHandler():
             "dispatch_id" : int(id_dispatch_paris)
         }
         print(payload)
-        update = BeetrackAPI(self.api_key).update_dispatch(guide, payload, account_id)
+        update = BeetrackAPI(self.api_key, self.base_url).update_dispatch(guide, payload)
         print({"Request payload" : payload},{"Beetrack Response" : update})
         return update
 

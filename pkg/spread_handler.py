@@ -6,15 +6,16 @@ class SpreadHandler():
     def __init__(self, body):
         self.body = body
         self.api_key = os.environ.get("spread_api_key")
-        BeetrackAPI.__init__(self, self.api_key)
+        self.base_url = "https://app.beetrack.com/api/external/v1"
+        BeetrackAPI.__init__(self, self.api_key, self.base_url)
 
-    def check_or_create_trucks(self, truck, account_id):
-        get_trucks = BeetrackAPI.get_trucks(self, account_id)
+    def check_or_create_trucks(self, truck):
+        get_trucks = BeetrackAPI.get_trucks(self)
         trucks = get_trucks.get('response').get('trucks')
         if truck not in trucks:
             print({"Handler New Truck": truck})
             new_truck = {"identifier" : truck}
-            create = BeetrackAPI.create_truck(self,new_truck, account_id)
+            create = BeetrackAPI.create_truck(self,new_truck)
             print({"Beetrack Response" : create})
             return truck
         else:
@@ -41,7 +42,7 @@ class SpreadHandler():
                 dispatch.update({'destination': 'CT Spread'})
         return paris_dispatches
 
-    def create_new_trunk_route(self, truck, dispatches, account_id):
+    def create_new_trunk_route(self, truck, dispatches):
         date = self.body.get('date')
         payload = {
             "truck_identifier": truck, 
@@ -49,11 +50,11 @@ class SpreadHandler():
             "dispatches": dispatches
         }
         print({"New Trunk Route Payload": payload})
-        create_route = BeetrackAPI.create_route(self,payload, account_id)
+        create_route = BeetrackAPI.create_route(self,payload)
         print ({"Beetrack Response for Creating Route" : create_route})
         return create_route
 
-    def get_id_dispatch_spread(self, account_id):
+    def get_id_dispatch_spread(self):
         guide = self.body.get("guide")
         id_dispatch = self.body.get("dispatch_id")
         payload = {
@@ -61,5 +62,5 @@ class SpreadHandler():
             "tags": [{"name": "id_dispatch_paris","value": id_dispatch}]
         }
         print ({"Updating ID Dispatch Payload" : payload})
-        update_dispatch = BeetrackAPI.update_dispatch(self, guide, payload, account_id)
+        update_dispatch = BeetrackAPI.update_dispatch(self, guide, payload)
         return update_dispatch
