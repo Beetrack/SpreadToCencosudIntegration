@@ -9,7 +9,7 @@ class BeetrackAPI():
         self.headers = { "Content-Type" : "application/json","X-AUTH-TOKEN": self.api_key}
 
     def base_url_for_account(self, account_id):
-        if account_id == os.environ.get("account_id_paris"):
+        if account_id == int(os.environ.get("account_id_paris")):
             base_url = "https://app.beetrack.dev/api/external/v1"
             return base_url
         else:
