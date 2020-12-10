@@ -5,11 +5,11 @@ custom:
   environmentVariables:
     beetrack_api_keys:
       spread_group:
-        master: "f233ca2d404955a6c551e4735f869a5f9206854cef2489d8ee971617da358364"
-        staging: "f233ca2d404955a6c551e4735f869a5f9206854cef2489d8ee971617da358364"
+        master: "b1226ab78f0532270541d3afa0d1c5bc3d4ec01b5c67629d970e48c3c379f124"
+        staging: "b1226ab78f0532270541d3afa0d1c5bc3d4ec01b5c67629d970e48c3c379f124"
       spread:
-        master: "3bdf4a4157e5d50fa78e106e6af58f39e6a2f0727632b898cce2917bef2a2d61"
-        staging: "3bdf4a4157e5d50fa78e106e6af58f39e6a2f0727632b898cce2917bef2a2d61"    
+        master: "2d4dfc0ba948bf3a8ba190c2c4202078e3f78893e3a15597dbfffacaa0ea9f7c"
+        staging: "2d4dfc0ba948bf3a8ba190c2c4202078e3f78893e3a15597dbfffacaa0ea9f7c"    
       paris:
         master: "39650708b26010c236c68aa3c581d4fe63539eeb67a53ce37ab6d230a30c10e4"
         staging: "39650708b26010c236c68aa3c581d4fe63539eeb67a53ce37ab6d230a30c10e4"
@@ -20,11 +20,11 @@ custom:
       master: "4807"
       staging: "4807"
     account_id_spread:
+      master: "2237"
+      staging: "2237"
+    account_id_paris:
       master: "2575"
       staging: "2575"
-    account_id_paris:
-      master: "2290"
-      staging: "2290"
 
 
 

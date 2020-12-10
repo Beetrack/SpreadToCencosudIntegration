@@ -79,7 +79,7 @@ def integrate(event, context):
     print({"Handler If Case" : "Update Spraed dispatches on Paris"})
     group_name = fetch_tag(body.get("groups"), "name")
     print(group_name)
-    if group_name == "PARIS" and body.get("status") != 1:
+    if group_name == "Paris" and body.get("status") != 1:
       #Cambiar a Paris cuando se metan las credenciales de Spread
       update_dispatch_on_paris = paris.update_dispatch()
       print("Response for updating Spread dispatches on Paris :",update_dispatch_on_paris)
