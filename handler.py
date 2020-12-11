@@ -30,7 +30,7 @@ def integrate(event, context):
       print("Paris trunk route does not belong to Spread or doesn't have any Spread dispatches.")
       response_body = "Message: Trunk route does not belong to Spread or doesn't have any Spread dispatch."
     else:
-      #truck_identifier = "PAR-" + body.get("truck")
+      truck_identifier = "PAR-" + body.get("truck")
       print("Paris vehicle on Spread :", truck_identifier)
       verify_spread_truck = spread.check_or_create_trucks(truck_identifier)
       print("Verify existence Paris truck on Spread :", verify_spread_truck)
@@ -62,7 +62,7 @@ def integrate(event, context):
       response_body = "Message: Route does not exist or doesnt have Paris dispatches"
 
     else:
-      truck_identifier = "SPR-" + body.get("truck")
+      t#ruck_identifier = "SPR-" + body.get("truck")
       print("Spread vehicle on Paris :", truck_identifier)
       verify_paris_truck = paris.check_or_create_trucks(truck_identifier)
       print("Verify existence Paris truck on Spread :", verify_paris_truck)
