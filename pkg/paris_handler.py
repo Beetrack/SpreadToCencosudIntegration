@@ -94,7 +94,9 @@ class ParisHandler():
 
     def update_trunk_dispatch(self):
         status = self.body.get("status")
+        print(status)
         guide = self.body.get("guide")
+        print(guide)
         tags = self.body.get("tags")
         print(tags) #Delete
         id_dispatch_paris = fetch_tag_value(tags, "id_dispatch_paris")
