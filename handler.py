@@ -19,7 +19,7 @@ def integrate(event, context):
   print({"Event from Account ID": account_id})
 
   if (resource == "route" and event == "update" and account_id == int(account_id_paris)):
-    print({"Handler if casa": "Update Route for Paris"})
+    print({"Handler if casa": "Update Trunk Route for Paris"})
     paris_route_id = body.get("route")
     print({"Paris Route ID": paris_route_id})
     get_paris_route = BeetrackAPI(os.environ.get("paris_api_key"), "https://app.beetrack.dev/api/external/v1").get_route(paris_route_id)
@@ -30,7 +30,7 @@ def integrate(event, context):
       print("Paris trunk route does not belong to Spread or doesn't have any Spread dispatches.")
       response_body = "Message: Trunk route does not belong to Spread or doesn't have any Spread dispatch."
     else:
-      truck_identifier = "PAR-" + body.get("truck")
+      #truck_identifier = "PAR-" + body.get("truck")
       print("Paris vehicle on Spread :", truck_identifier)
       verify_spread_truck = spread.check_or_create_trucks(truck_identifier)
       print("Verify existence Paris truck on Spread :", verify_spread_truck)
