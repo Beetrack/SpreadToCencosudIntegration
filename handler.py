@@ -62,18 +62,23 @@ def integrate(event, context):
       response_body = "Message: Route does not exist or doesnt have Paris dispatches"
 
     else:
-      t#ruck_identifier = "SPR-" + body.get("truck")
-      print("Spread vehicle on Paris :", truck_identifier)
-      verify_paris_truck = paris.check_or_create_trucks(truck_identifier)
-      print("Verify existence Paris truck on Spread :", verify_paris_truck)
       get_paris_dispatches = paris.create_paris_dispatches(spread_route)
       print("Dispatches within Spread's route belonging to Paris :", get_paris_dispatches)
-      create_route_on_paris = paris.create_new_route(verify_paris_truck, get_paris_dispatches)
-      print("Response after creating Spread rute on Paris :", create_route_on_paris)
-      new_paris_route_id = create_route_on_paris.get('response').get('route_id')
-      start_paris_route = paris.start_route(new_paris_route_id, route_start_at)
-      print("Response after starting Spread rute on Paris :", start_paris_route)
-      response_body = "Message: Route was created and Started correctly"
+      if get_paris_dispatches == []:
+        print("Spread route does not belong to Paris or doesn't have any Paris dispatches.")
+        response_body = {"Message: Route does not belong to Paris or doesn't have any Paris dispatch."}
+      else:
+        truck_identifier = "SPR-" + body.get("truck")
+        print("Spread vehicle on Paris :", truck_identifier)
+        verify_paris_truck = paris.check_or_create_trucks(truck_identifier)
+        print("Verify existence Paris truck on Spread :", verify_paris_truck)
+        
+        create_route_on_paris = paris.create_new_route(verify_paris_truck, get_paris_dispatches)
+        print("Response after creating Spread rute on Paris :", create_route_on_paris)
+        new_paris_route_id = create_route_on_paris.get('response').get('route_id')
+        start_paris_route = paris.start_route(new_paris_route_id, route_start_at)
+        print("Response after starting Spread rute on Paris :", start_paris_route)
+        response_body = "Message: Route was created and Started correctly"
 
   elif (resource == "dispatch" and event== "update" and account_id == int(account_id_spread) and is_trunk == False):
     print({"Handler If Case" : "Update Spraed dispatches on Paris"})
