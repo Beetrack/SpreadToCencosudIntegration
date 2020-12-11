@@ -23,7 +23,9 @@ class SpreadHandler():
 
     def get_spread_trunk_dispatches(self, paris_route):
         paris_dispatches = paris_route.get("response").get("route").get("dispatches")
+        print(paris_dispatches)
         for dispatch in paris_dispatches:
+            print(dispatch.get("destination").get("name"), dispatch.get("is_trunk"))
             if dispatch.get("destination").get("name") == "CT Spread" and dispatch.get("is_trunk") == True:  
                 id_route_paris = dispatch.get("route_id")
                 id_dispatch_paris = dispatch.get("dispatch_id")
