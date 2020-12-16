@@ -27,6 +27,8 @@ class ParisHandler():
         paris_dispatches = ignore_none_value(spread_dispatches)
         for dispatch in paris_dispatches:
             id_route_spread = dispatch.get("route_id")
+            dispatch_identifier = dispatch.get("identifier")
+            dispatch.update({"identifier": "SPR-" + dispatch_identifier})
             dispatch.update({'tags': [{"name": "id_route_spread","value": id_route_spread}]})
             dispatch.pop('route_id')
             dispatch.pop('status')
