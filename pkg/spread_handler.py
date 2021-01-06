@@ -41,6 +41,8 @@ class SpreadHandler():
                 dispatch.pop('max_delivery_time')
                 dispatch.pop('beecode')
                 dispatch.pop('is_trunk')
+                dispatch.pop('place')
+                dispatch.pop('tags')
                 dispatch.update({'is_trunk': 'true'})
                 dispatch.update({'destination': 'CT Spread'})
         return paris_dispatches
