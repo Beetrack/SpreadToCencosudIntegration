@@ -24,6 +24,7 @@ class SpreadHandler():
     def get_spread_trunk_dispatches(self, paris_route):
         paris_dispatches = paris_route.get("response").get("route").get("dispatches")
         print("Paris dispatches :", paris_dispatches)
+        spread_dispatches = []
         for dispatch in paris_dispatches:
             if dispatch.get("place") != None:
                 print("Dispatch place :", dispatch.get("place"))
@@ -46,8 +47,11 @@ class SpreadHandler():
                     dispatch.pop('tags')
                     dispatch.update({'is_trunk': 'true'})
                     dispatch.update({'destination': 'CT Spread'})
-        return paris_dispatches
-
+                    spread_dispatches.append(dispatch)
+            else: 
+                pass
+        return spread_dispatches
+        
     def create_new_trunk_route(self, truck, dispatches):
         date = self.body.get('date')
         payload = {

@@ -19,7 +19,7 @@ def integrate(event, context):
   print({"Event from Account ID": account_id})
 
   if (resource == "route" and event == "update" and account_id == int(account_id_paris)):
-    print({"Handler if casa": "Update Trunk Route for Paris"})
+    print({"Handler if case": "Update Trunk Route for Paris"})
     paris_route_id = body.get("route")
     print({"Paris Route ID": paris_route_id})
     get_paris_route = BeetrackAPI(os.environ.get("paris_api_key"), "https://app.beetrack.dev/api/external/v1").get_route(paris_route_id) # Cambiar al pasar a producción.
