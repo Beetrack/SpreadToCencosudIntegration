@@ -17,7 +17,7 @@ class ParisHandler():
             print({"Handler New Truck": truck})
             new_truck = {"identifier" : truck}
             create = BeetrackAPI.create_truck(self,new_truck)
-            print({"Beetrack NT Response" : create})
+            print({"Message: Truck created in Paris": create})
             return truck
         else:
             return truck
@@ -50,7 +50,6 @@ class ParisHandler():
         }
         print({"New Route Payload": payload})
         create_route = BeetrackAPI.create_route(self,payload)
-        print ({"Beetrack Response for Creating Route" : create_route})
         return create_route
 
     def start_route(self, route_id, started_at):
@@ -59,16 +58,12 @@ class ParisHandler():
         }
         print({"Started At Update Payload": payload})
         route_start = BeetrackAPI.update_route(self,route_id, payload)
-        print ({"Beetrack Response for Starting Route" : route_start})
         return route_start
 
     def update_dispatch(self):
         status = self.body.get("status")
-        print(status)
         guide_id = self.body.get("guide") 
-        print(guide_id)
         substatus = self.homologate_substatus()
-        print(substatus)
         if substatus == True:
             payload = {
             "status" : int(status)
@@ -91,26 +86,20 @@ class ParisHandler():
         filter_tag = BeetrackAPI.filter_dispatch(self, tag_route, route_id)
         paris_id_route = filter_tag.get("response")[0].get("route_id")
         route_finish = BeetrackAPI.update_route(self, paris_id_route, payload)
-        print ({"Beetrack Response for Starting Route" : route_finish})
         return route_finish
 
     def update_trunk_dispatch(self):
         status = self.body.get("status")
-        print(status)
         guide = self.body.get("guide")
-        print(guide)
         tags = self.body.get("tags")
-        print(tags) #Delete
         id_dispatch_paris = fetch_tag_value(tags, "id_dispatch_paris")
-        print(id_dispatch_paris) #Delete
         payload = {
             "status" : int(status),
             "place":  "CT Spread",
             "dispatch_id" : int(id_dispatch_paris)
         }
-        print(payload) #Delete
+        print({"Request payload" : payload})
         update = BeetrackAPI(self.api_key, self.base_url).update_dispatch(guide, payload)
-        print({"Request payload" : payload},{"Beetrack Response" : update})
         return update
 
     def homologate_substatus(self):

@@ -1,5 +1,6 @@
 import os
 from pkg.beetrack_api import BeetrackAPI
+from commons import fetch_tag_value
 
 class SpreadHandler():
 
@@ -16,7 +17,7 @@ class SpreadHandler():
             print({"Handler New Truck": truck})
             new_truck = {"identifier" : truck}
             create = BeetrackAPI.create_truck(self,new_truck)
-            print({"Beetrack Response" : create})
+            print({"Message: Truck created in Spread": create})
             return truck
         else:
             return truck
@@ -27,8 +28,7 @@ class SpreadHandler():
         spread_dispatches = []
         for dispatch in paris_dispatches:
             if dispatch.get("place") != None:
-                print("Dispatch place :", dispatch.get("place"))
-                print("Dispatch is trunk :", dispatch.get("is_trunk"))
+                print("Dispatch place :", dispatch.get("place"), "Dispatch is trunk :", dispatch.get("is_trunk"))
                 if dispatch.get("place").get("name") == "CT Spread" and dispatch.get("is_trunk") == True:  
                     id_route_paris = dispatch.get("route_id")
                     id_dispatch_paris = dispatch.get("dispatch_id")
@@ -47,6 +47,11 @@ class SpreadHandler():
                     dispatch.pop('tags')
                     dispatch.update({'is_trunk': 'true'})
                     dispatch.update({'destination': 'CT Spread'})
+                    items = dispatch.get("items")
+                    for item in items:
+                        extras = item.get("extras")
+                        carton_id = fetch_tag_value(extras, "CARTONID")
+                        item.update({"extras" : [{"CARTONID": carton_id}]})
                     spread_dispatches.append(dispatch)
             else: 
                 pass
@@ -61,7 +66,6 @@ class SpreadHandler():
         }
         print({"New Trunk Route Payload": payload})
         create_route = BeetrackAPI.create_route(self,payload)
-        print ({"Beetrack Response for Creating Route" : create_route})
         return create_route
 
     def get_id_dispatch_spread(self):

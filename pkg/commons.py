@@ -17,3 +17,11 @@ def fetch_tag(array, tag_name):
       if tag_name in item:
         return item[tag_name]
     return None
+
+def response_handler(response, message):
+    status = response.get("status")
+    if status == "error":
+        response = response.get("response")
+        return "Message: Error / Response : {}".format(response)
+    else: 
+        return message
