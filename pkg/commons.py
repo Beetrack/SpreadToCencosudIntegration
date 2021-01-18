@@ -1,4 +1,3 @@
-
 def ignore_none_value(values):
     not_none_value = []
     for value in values:
