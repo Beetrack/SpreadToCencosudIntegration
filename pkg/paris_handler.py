@@ -1,6 +1,6 @@
 import os
-from pkg.beetrack_api import BeetrackAPI
-from pkg.commons import ignore_none_value, fetch_tag_value
+from .beetrack_api import BeetrackAPI
+from .commons import ignore_none_value, fetch_tag_value
 
 class ParisHandler():
 

@@ -1,6 +1,6 @@
 import os
-from pkg.beetrack_api import BeetrackAPI
-from commons import fetch_tag_value
+from .beetrack_api import BeetrackAPI
+from .commons import fetch_tag_value
 
 class SpreadHandler():
 
