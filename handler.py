@@ -2,7 +2,7 @@ import json, os
 from pkg.paris_handler import ParisHandler
 from pkg.spread_handler import SpreadHandler
 from pkg.beetrack_api import BeetrackAPI
-from pkg.commons import fetch_tag_value, fetch_tag, response_handler
+
 
 def integrate(event, context):
   print({"Event": event})
