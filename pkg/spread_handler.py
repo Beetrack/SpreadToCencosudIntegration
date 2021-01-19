@@ -27,8 +27,8 @@ class SpreadHandler():
         print("Paris dispatches :", paris_dispatches)
         spread_dispatches = []
         for dispatch in paris_dispatches:
-            if dispatch.get("place") != None:
-                print("Dispatch place :", dispatch.get("place"), "Dispatch is trunk :", dispatch.get("is_trunk"))
+            if dispatch.get("destination") != None:
+                print("Dispatch place :", dispatch.get("destination"), "Dispatch is trunk :", dispatch.get("is_trunk"))
                 if dispatch.get("destination").get("name") == "CT Spread" and dispatch.get("is_trunk") == True:  
                     id_route_paris = dispatch.get("route_id")
                     id_dispatch_paris = dispatch.get("dispatch_id")
