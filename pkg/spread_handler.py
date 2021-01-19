@@ -55,6 +55,7 @@ class SpreadHandler():
                         item.update({"extras" : [{"CARTONID": carton_id}]})
                         print(item)
                     spread_dispatches.append(dispatch)
+                    print(dispatch.get('tags'))
             else: 
                 pass
         return spread_dispatches
