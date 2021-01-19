@@ -45,7 +45,6 @@ class SpreadHandler():
                     dispatch.pop('beecode')
                     dispatch.pop('is_trunk')
                     dispatch.update({'place' : 'CT Spread'})
-                    dispatch.pop('tags')
                     dispatch.update({'is_trunk': 'true'})
                     dispatch.update({'destination': 'CT Spread'})
                     items = dispatch.get("items")
