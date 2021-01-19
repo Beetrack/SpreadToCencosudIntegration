@@ -32,6 +32,7 @@ class SpreadHandler():
                 if dispatch.get("destination").get("name") == "CT Spread" and dispatch.get("is_trunk") == True:  
                     id_route_paris = dispatch.get("route_id")
                     id_dispatch_paris = dispatch.get("dispatch_id")
+                    print(id_route_paris)
                     dispatch.update({'tags': [{"name": "id_route_paris","value": id_route_paris},{"name": "id_dispatch_paris","value": id_dispatch_paris}]})
                     dispatch.pop('route_id')
                     dispatch.pop('status')
@@ -52,6 +53,7 @@ class SpreadHandler():
                         extras = item.get("extras")
                         carton_id = fetch_tag_value(extras, "CARTONID")
                         item.update({"extras" : [{"CARTONID": carton_id}]})
+                        print(item)
                     spread_dispatches.append(dispatch)
             else: 
                 pass
