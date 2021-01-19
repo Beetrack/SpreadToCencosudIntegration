@@ -29,7 +29,7 @@ class SpreadHandler():
         for dispatch in paris_dispatches:
             if dispatch.get("place") != None:
                 print("Dispatch place :", dispatch.get("place"), "Dispatch is trunk :", dispatch.get("is_trunk"))
-                if dispatch.get("place").get("name") == "CT Spread" and dispatch.get("is_trunk") == True:  
+                if dispatch.get("destination").get("name") == "CT Spread" and dispatch.get("is_trunk") == True:  
                     id_route_paris = dispatch.get("route_id")
                     id_dispatch_paris = dispatch.get("dispatch_id")
                     dispatch.update({'tags': [{"name": "id_route_paris","value": id_route_paris},{"name": "id_dispatch_paris","value": id_dispatch_paris}]})
