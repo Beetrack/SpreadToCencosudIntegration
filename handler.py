@@ -58,7 +58,7 @@ def integrate(event, context):
   elif (resource == "dispatch" and event== "update" and account_id == int(account_id_spread) and is_trunk == False):
     print({"Handler If Case" : "Update Spraed dispatches on Paris"})
     group_name = fetch_tag(body.get("groups"), "name")
-    if group_name == "Paris" and body.get("status") != 1:
+    if group_name == "Paris" and (body.get("status") in [1,2,3,4]):
       #Cambiar a Paris cuando se metan las credenciales de Spread
       update_dispatch_on_paris = paris.update_dispatch()
       response_body = response_handler(update_dispatch_on_paris, "Message: Dispatch was updated with new status")
