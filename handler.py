@@ -15,10 +15,13 @@ def integrate(event, context):
   account_id = body.get("account_id")
   resource = body.get("resource")
   event = body.get("event")
+  truck = body.get("truck")
   is_trunk = body.get("is_trunk")
   print({"Event from Account ID": account_id})
 
-  if (resource == "route" and event == "update" and account_id == int(account_id_paris)):
+  paris_trucks = ["SPREAD"]
+
+  if (resource == "route" and event == "update" and account_id == int(account_id_paris) and (truck in paris_trucks)):
     print({"Handler if case": "Paris Route"})
     paris_route_id = body.get("route")
     print({"Paris Route ID": paris_route_id})
