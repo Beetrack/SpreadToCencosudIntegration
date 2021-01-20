@@ -22,6 +22,7 @@ def integrate(event, context):
   paris_trucks = ["SPREAD"]
 
   if (resource == "route" and event == "update" and account_id == int(account_id_paris) and (truck in paris_trucks)):
+    # Clone trunk route for Spread from Paris account to Spread account.
     print({"Handler if case": "Paris Route"})
     paris_route_id = body.get("route")
     print({"Paris Route ID": paris_route_id})
@@ -43,42 +44,16 @@ def integrate(event, context):
       response_body = response_handler(create_trunk_route_on_spread, "Message: Trunk route was created in Spread")
   
   elif (resource == "dispatch" and event == "update" and account_id == int(account_id_paris) and is_trunk == True and body.get("status") == 1):
+    # Get id dispatch of the dispatches of Paris and added to a tag associated to the Spread dispatches.
     print({"Handler If Case" : "Paris Update Dispatch for adding ID Dispatch on Spread Trunks"})
     update_dispatch_id_on_spread = spread.get_id_dispatch_spread()
     response_body = response_handler(update_dispatch_id_on_spread, "Message: Dispatch was updated on Spread with the id dispatch on Paris")
 
   elif (resource == "dispatch" and event == "update" and account_id == int(account_id_spread) and is_trunk == True):
+    # Update trunk dispatch on Paris account.
     print({"Handler If Case" : "Update Trunk Dispatch in Paris"})
     update_trunk_dispatch_on_paris = paris.update_trunk_dispatch()
     response_body = response_handler(update_trunk_dispatch_on_paris, "Message: Dispatch was updated in Paris succesfully with new status")
-
-  elif (resource == "route" and event == "start" and account_id == int(account_id_spread)):
-    print({"Handler If Case" : "Start Route"})
-    spread_route_id = body.get("route")
-    route_start_at = body.get("started_at")
-    spread_route = BeetrackAPI(os.environ.get("spread_group_api_key"), "https://app.beetrack.com/api/external/v1").get_route(spread_route_id)
-    print("Spread route (id : {}) started at {} :".format(spread_route_id, route_start_at), spread_route)
-
-    if not spread_route:
-      response_body = "Message: Route does not exist or doesnt have Paris dispatches"
-
-    else:
-      get_paris_dispatches = paris.create_paris_dispatches(spread_route)
-      print("Dispatches within Spread's route belonging to Paris :", get_paris_dispatches)
-      if get_paris_dispatches == []:
-        response_body = {"Message: Route does not belong to Paris or doesn't have any Paris dispatch."}
-      else:
-        truck_identifier = "SPR-" + body.get("truck")
-        print("Spread vehicle on Paris :", truck_identifier)
-        verify_paris_truck = paris.check_or_create_trucks(truck_identifier)
-        print("Verify existence Paris truck on Spread :", verify_paris_truck)
-        
-        create_route_on_paris = paris.create_new_route(verify_paris_truck, get_paris_dispatches)
-        print("Response after creating Spread rute on Paris :", create_route_on_paris)
-        new_paris_route_id = create_route_on_paris.get('response').get('route_id')
-        start_paris_route = paris.start_route(new_paris_route_id, route_start_at)
-        print("Response after starting Spread rute on Paris :", start_paris_route)
-        response_body = response_handler(create_route_on_paris, "Message: Route was created and Started correctly")
 
   elif (resource == "dispatch" and event== "update" and account_id == int(account_id_spread) and is_trunk == False):
     print({"Handler If Case" : "Update Spraed dispatches on Paris"})
@@ -90,13 +65,6 @@ def integrate(event, context):
     else:
       response_body = "Message: Resource is dispatch but event is not update or is not Paris group or status is pending. Not doing anything."
   
-  elif (resource == "route" and event == "finish" and account_id == int(account_id_spread)):
-    print({"Handler If Case" : "Finish Route"})
-    ended_at = body.get("ended_at")
-    route_id = body.get("route")
-    finish_paris_route = paris.finish_route(ended_at, route_id, int(os.environ.get("tag_route")))
-    response_body = response_handler(finish_paris_route, "Message: Route was fnished")
-
   else:
     response_body = "Message: Webhook resource is not 'route' or 'dispatch'. Not doing anything"
 

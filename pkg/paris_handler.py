@@ -63,19 +63,23 @@ class ParisHandler():
     def update_dispatch(self):
         status = self.body.get("status")
         guide = self.body.get("guide") 
-        guide_id = "SPR-" + str(guide)
+        tags = self.body.get("tags")
+        id_dispatch_paris = fetch_tag_value(tags, "id_dispatch_paris")
         substatus = self.homologate_substatus()
         if substatus == True:
             payload = {
-            "status" : int(status)
+            "status" : int(status),
+            "dispatch_id" : int(id_dispatch_paris)
+
         }
         else:
             payload = {
                 "status" : int(status),
-                "substatus_code" : substatus
+                "substatus_code" : substatus,
+                "dispatch_id" : int(id_dispatch_paris)
             }
         print({"Update Dispatch Status Payload": payload})
-        create = BeetrackAPI(self.api_key, self.base_url).update_dispatch(guide_id, payload)
+        create = BeetrackAPI(self.api_key, self.base_url).update_dispatch(guide, payload)
         print({"Beetrack Response" : create},{"Payload to update" : payload})
         return create
 
