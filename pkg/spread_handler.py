@@ -31,7 +31,7 @@ class SpreadHandler():
                 id_route_paris = dispatch.get("route_id")
                 id_dispatch_paris = dispatch.get("dispatch_id")
                 dispatch_indetifier = dispatch.get("identifier")
-                dispatch.update({'tags': [{"name": "id_route_paris","value": id_route_paris},{"name": "id_dispatch_paris","value": id_dispatch_paris}]})
+                dispatch.update({'tags': [{"id_route_paris": id_route_paris},{"id_dispatch_paris": id_dispatch_paris}]})
                 dispatch.update({'identifier': "PAR-"+str(dispatch_indetifier)})
                 dispatch.pop('route_id')
                 dispatch.pop('status')
