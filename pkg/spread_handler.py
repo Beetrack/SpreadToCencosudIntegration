@@ -29,9 +29,8 @@ class SpreadHandler():
         for dispatch in paris_dispatches:
             if dispatch.get("is_trunk") == True:  
                 id_route_paris = dispatch.get("route_id")
-                id_dispatch_paris = dispatch.get("dispatch_id")
                 dispatch_indetifier = dispatch.get("identifier")
-                dispatch.update({'tags': [{"id_route_paris": id_route_paris},{"id_dispatch_paris": id_dispatch_paris}]})
+                dispatch.update({'tags': [{"id_route_paris": id_route_paris}]})
                 dispatch.update({'identifier': "PAR-"+str(dispatch_indetifier)})
                 dispatch.pop('route_id')
                 dispatch.pop('status')
@@ -75,7 +74,7 @@ class SpreadHandler():
         id_dispatch = self.body.get("dispatch_id")
         payload = {
             "is_trunk": True,
-            "tags": [{"name": "id_dispatch_paris","value": id_dispatch}]
+            "tags": [{"id_dispatch_paris": id_dispatch}]
         }
         print ({"Updating ID Dispatch Payload" : payload})
         update_dispatch = BeetrackAPI.update_dispatch(self, guide_in_spread, payload)
