@@ -42,3 +42,9 @@ class BeetrackAPI():
         url = self.base_url+"/dispatches?cf[{}]={}&rd=5".format(tag,route_id)
         r = requests.get(url, headers = self.headers).json()
         return r 
+
+    def get_dispatch(self, guide):
+        url = self.base_url+"/dispatches/"+ str(guide)
+        r = requests.get(url, headers = self.headers).json()
+        return r 
+

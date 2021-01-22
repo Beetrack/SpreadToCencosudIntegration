@@ -50,12 +50,13 @@ def integrate(event, context):
     response_body = response_handler(update_dispatch_id_on_spread, "Message: Dispatch was updated on Spread with the id dispatch on Paris")
 
   elif (resource == "dispatch" and event == "update" and account_id == int(account_id_spread) and is_trunk == True):
-    # Update trunk dispatch on Paris account.
+    # Update status in trunk dispatch on Paris account.
     print({"Handler If Case" : "Update Trunk Dispatch in Paris"})
     update_trunk_dispatch_on_paris = paris.update_trunk_dispatch()
     response_body = response_handler(update_trunk_dispatch_on_paris, "Message: Dispatch was updated in Paris succesfully with new status")
 
   elif (resource == "dispatch" and event== "update" and account_id == int(account_id_spread) and is_trunk == False):
+    # Update trunk dispatches with last mile status in Paris account
     print({"Handler If Case" : "Update Spraed dispatches on Paris"})
     group_name = fetch_tag(body.get("groups"), "name")
     if group_name == "Paris" and (body.get("status") in [1,2,3,4]):
