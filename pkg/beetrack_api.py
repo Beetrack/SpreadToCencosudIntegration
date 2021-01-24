@@ -48,3 +48,7 @@ class BeetrackAPI():
         r = requests.get(url, headers = self.headers).json()
         return r 
 
+    def create_dispatch(self, payload):
+        url = self.base_url+"/dispatches"
+        r = requests.post(url, json = payload, headers = self.headers).json()
+        return r

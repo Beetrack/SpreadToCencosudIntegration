@@ -55,9 +55,7 @@ class SpreadHandler():
                     extras = item.get('extras')
                     carton_id = fetch_tag_value(extras, 'CARTONID')
                     item.update({'extras' : [{'CARTONID': carton_id}]})
-                    print(item)
                 spread_dispatches.append(dispatch)
-                print(dispatch.get('tags'))
             else: 
                 pass
         return spread_dispatches
@@ -73,17 +71,10 @@ class SpreadHandler():
         print({"New Trunk Route Payload": payload})
         create_route = BeetrackAPI.create_route(self,payload)
         id_route_spread = create_route.get('response').get('route_id')
-        route = self.connection.setex(str(id_route_paris), 30, str(id_route_spread))
+        route = self.connection.setex(str(id_route_paris), 60*30, str(id_route_spread))
+        # Cambiar tiempo a 24 hrs. (1 day)
         redis_save = {"identifier" : id_route_paris  , "redis": route}
         print ({"Redis Save Response" : redis_save})
-        x = self.connection.get(str(id_route_paris))
-        print(x)
-        sleep(31)
-        y = self.connection.get(str(id_route_paris))
-        w = self.connection.exists(str(id_route_paris))
-        print(y)
-        print(w)
-
         return create_route
 
     def get_id_dispatch_spread(self):
@@ -101,6 +92,44 @@ class SpreadHandler():
     def verify_existence_in_spread(self):
         guide = self.body.get('guide')
         guide_in_spread = 'PAR-'+str(guide)
-        get_dispatch_info = BeetrackAPI.get_dispatch(self, guide_in_spread)
-        response_mesage = get_dispatch_info.get('message')
-        return response_mesage
+        fetch_dispatch = BeetrackAPI.get_dispatch(self, guide_in_spread)
+        response_mesage = fetch_dispatch.get('message')
+        if response_mesage == "Not Found":
+            print({"Dispatch Information" : response_mesage})
+            return False
+        else:
+            print({"Dispatch Information" : "Found"})
+
+    def add_dispatch_to_trunk_route(self):
+        self.body.pop('resource')
+        self.body.pop('event')
+        self.body.pop('account_name')
+        self.body.pop('account_id')
+        self.body.pop('guide')
+        paris_route_id = self.body.get('route_id')
+        self.body.pop('route_id')
+        paris_dispatch_id = self.body.get('dispatch_id')
+        self.body.pop('dispatch_id')
+        self.body.pop('truck_identifier')
+        self.body.update({'tags': [{'id_route_paris': paris_route_id},{'id_dispatch_paris': paris_dispatch_id}]})
+        items = self.body.get('items')
+        for item in items:
+            extras = item.get('extras')
+            carton_id = fetch_tag_value(extras, 'CARTONID')
+            item.update({'extras' : [{'CARTONID': carton_id}]})
+            item.pop('id')
+            item.pop('original_quantity')
+            item.pop('delivered_quantity')
+        spread_route_id = (self.connection.get(str(paris_route_id))).decode('ascii')
+        print({"Spread route id from Redis" : spread_route_id})
+        self.body.append({'route_id' : spread_route_id})
+        add_dispatch_on_spread = BeetrackAPI.create_dispatch(self.body)
+        return add_dispatch_on_spread
+
+        
+                
+
+
+
+
+
