@@ -105,6 +105,7 @@ class SpreadHandler():
             return
 
     def add_dispatch_to_trunk_route(self):
+        paris_route_id = self.body.get('route_id')
         spread_route_id = self.connection.get(str(paris_route_id))
         if spread_route_id != None:
             self.body.pop('resource')
@@ -112,7 +113,6 @@ class SpreadHandler():
             self.body.pop('account_name')
             self.body.pop('account_id')
             self.body.pop('guide')
-            paris_route_id = self.body.get('route_id')
             dispatch_identifier = 'PAR-' + self.body.get('identifier')
             self.body.update({'identifier' : dispatch_identifier})
             self.body.pop('route_id')
@@ -128,7 +128,6 @@ class SpreadHandler():
                 item.pop('id')
                 item.pop('original_quantity')
                 item.pop('delivered_quantity')
-            spread_route_id = self.connection.get(str(paris_route_id))
             print({"Spread route id from Redis" : spread_route_id})
             self.body.update({'route_id' : spread_route_id.decode('ascii')})
             payload = self.body
