@@ -126,9 +126,9 @@ class SpreadHandler():
             item.pop('id')
             item.pop('original_quantity')
             item.pop('delivered_quantity')
-        spread_route_id = (self.connection.get(str(paris_route_id))).decode('ascii')
+        spread_route_id = self.connection.get(str(paris_route_id))
         print({"Spread route id from Redis" : spread_route_id})
-        self.body.update({'route_id' : spread_route_id})
+        self.body.update({'route_id' : spread_route_id.decode('ascii')})
         payload = self.body
         print(payload)
         add_dispatch_on_spread = BeetrackAPI.create_dispatch(self, payload)
