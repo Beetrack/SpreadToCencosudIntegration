@@ -43,7 +43,7 @@ class ParisHandler():
         id_dispatch_paris = fetch_tag_value(tags, 'id_dispatch_paris')
         payload = {
             'status' : int(status),
-            'destination':  'CT Spread',
+            'place':  'CT Spread',
             'dispatch_id' : int(id_dispatch_paris)
         }
         print({"Request payload" : payload})

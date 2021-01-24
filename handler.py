@@ -67,7 +67,7 @@ def integrate(event, context):
 
   elif (resource == "dispatch" and event== "update" and account_id == int(account_id_spread) and is_trunk == False):
     # Update trunk dispatches with last mile status in Paris account
-    print({"Handler If Case" : "Update Spraed dispatches on Paris"})
+    print({"Handler If Case" : "Update Spraed dispatches in Paris"})
     group_name = fetch_tag(body.get("groups"), "name")
     if group_name == "Paris" and (body.get("status") in [1,2,3,4]):
       #Cambiar a Paris cuando se metan las credenciales de Spread
