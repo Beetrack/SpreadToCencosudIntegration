@@ -23,7 +23,7 @@ class ParisHandler():
         self.body.pop('contact_identifier')
         items = self.body.get('items')
         for item in items:
-            item.pop('317251351')
+            item.pop('id')
             item.pop('extras')
         self.body.update({'destination' : None})
         self.body.update({'place' : None})
