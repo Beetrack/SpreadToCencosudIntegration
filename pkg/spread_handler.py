@@ -97,11 +97,12 @@ class SpreadHandler():
         print(fetch_dispatch)
         response_mesage = fetch_dispatch.get('message')
         print(response_mesage)
-        if response_mesage == "Not Found":
+        if response_mesage == "Not found":
             print({"Dispatch Information" : response_mesage})
             return False
         else:
             print({"Dispatch Information" : "Found"})
+            return
 
     def add_dispatch_to_trunk_route(self):
         self.body.pop('resource')
