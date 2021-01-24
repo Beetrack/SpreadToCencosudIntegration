@@ -105,34 +105,39 @@ class SpreadHandler():
             return
 
     def add_dispatch_to_trunk_route(self):
-        self.body.pop('resource')
-        self.body.pop('event')
-        self.body.pop('account_name')
-        self.body.pop('account_id')
-        self.body.pop('guide')
-        paris_route_id = self.body.get('route_id')
-        dispatch_identifier = 'PAR-' + self.body.get('identifier')
-        self.body.update({'identifier' : dispatch_identifier})
-        self.body.pop('route_id')
-        paris_dispatch_id = self.body.get('dispatch_id')
-        self.body.pop('dispatch_id')
-        self.body.pop('truck_identifier')
-        self.body.update({'tags': [{'id_route_paris': paris_route_id},{'id_dispatch_paris': paris_dispatch_id}]})
-        items = self.body.get('items')
-        for item in items:
-            extras = item.get('extras')
-            carton_id = fetch_tag_value(extras, 'CARTONID')
-            item.update({'extras' : [{'CARTONID': carton_id}]})
-            item.pop('id')
-            item.pop('original_quantity')
-            item.pop('delivered_quantity')
         spread_route_id = self.connection.get(str(paris_route_id))
-        print({"Spread route id from Redis" : spread_route_id})
-        self.body.update({'route_id' : spread_route_id.decode('ascii')})
-        payload = self.body
-        print(payload)
-        add_dispatch_on_spread = BeetrackAPI.create_dispatch(self, payload)
-        return add_dispatch_on_spread
+        if spread_route_id != None:
+            self.body.pop('resource')
+            self.body.pop('event')
+            self.body.pop('account_name')
+            self.body.pop('account_id')
+            self.body.pop('guide')
+            paris_route_id = self.body.get('route_id')
+            dispatch_identifier = 'PAR-' + self.body.get('identifier')
+            self.body.update({'identifier' : dispatch_identifier})
+            self.body.pop('route_id')
+            paris_dispatch_id = self.body.get('dispatch_id')
+            self.body.pop('dispatch_id')
+            self.body.pop('truck_identifier')
+            self.body.update({'tags': [{'id_route_paris': paris_route_id},{'id_dispatch_paris': paris_dispatch_id}]})
+            items = self.body.get('items')
+            for item in items:
+                extras = item.get('extras')
+                carton_id = fetch_tag_value(extras, 'CARTONID')
+                item.update({'extras' : [{'CARTONID': carton_id}]})
+                item.pop('id')
+                item.pop('original_quantity')
+                item.pop('delivered_quantity')
+            spread_route_id = self.connection.get(str(paris_route_id))
+            print({"Spread route id from Redis" : spread_route_id})
+            self.body.update({'route_id' : spread_route_id.decode('ascii')})
+            payload = self.body
+            add_dispatch_on_spread = BeetrackAPI.create_dispatch(self, payload)
+            print("Paris dispatch added in Spread trunk route")
+            return add_dispatch_on_spread
+        else: 
+            print("Spread route id was expired on Redis")
+        
 
         
                 
