@@ -92,8 +92,11 @@ class SpreadHandler():
     def verify_existence_in_spread(self):
         guide = self.body.get('guide')
         guide_in_spread = 'PAR-'+str(guide)
+        print(guide_in_spread)
         fetch_dispatch = BeetrackAPI.get_dispatch(self, guide_in_spread)
+        print(fetch_dispatch)
         response_mesage = fetch_dispatch.get('message')
+        print(response_mesage)
         if response_mesage == "Not Found":
             print({"Dispatch Information" : response_mesage})
             return False
@@ -107,6 +110,8 @@ class SpreadHandler():
         self.body.pop('account_id')
         self.body.pop('guide')
         paris_route_id = self.body.get('route_id')
+        dispatch_identifier = 'PAR-' + self.body.get('identifier')
+        self.body.update('identifier' : dispatch_identifier)
         self.body.pop('route_id')
         paris_dispatch_id = self.body.get('dispatch_id')
         self.body.pop('dispatch_id')
