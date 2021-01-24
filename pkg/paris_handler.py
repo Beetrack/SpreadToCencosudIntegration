@@ -26,10 +26,11 @@ class ParisHandler():
             item.pop('317251351')
             item.pop('extras')
         self.body.update({'destination' : None})
+        self.body.update({'place' : None})
         tags = self.body.get('tags')
         id_dispatch_paris = fetch_tag_value(tags, 'id_dispatch_paris')
         self.body.update({'dispatch_id' : int(id_dispatch_paris)})
-        payplaod = self.body
+        payload = self.body
         print({"Update Dispatch Status Payload": payload})
         create = BeetrackAPI(self.api_key, self.base_url).update_dispatch(guide, payload)
         print({"Beetrack Response" : create},{"Payload to update" : payload})
