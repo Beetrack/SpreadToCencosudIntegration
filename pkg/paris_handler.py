@@ -24,6 +24,7 @@ class ParisHandler():
         self.body.update({'substatus_code' : substatus})
         self.body.pop('substatus')
         self.body.pop('evaluation_answers')
+        self.body.pop('groups')
         items = self.body.get('items')
         for item in items:
             item.pop('id')
@@ -33,6 +34,7 @@ class ParisHandler():
         tags = self.body.get('tags')
         id_dispatch_paris = fetch_tag_value(tags, 'id_dispatch_paris')
         self.body.update({'dispatch_id' : int(id_dispatch_paris)})
+        self.body.pop('tags')
         payload = self.body
         print({"Update Dispatch Status Payload": payload})
         create = BeetrackAPI(self.api_key, self.base_url).update_dispatch(guide, payload)

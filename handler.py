@@ -59,7 +59,7 @@ def integrate(event, context):
       return response
     response_body = response_handler(response, "Message: Dispatch was created or updated in Spread with the id dispatch of Paris")
 
-  elif (resource == "dispatch" and event == "update" and account_id == int(account_id_spread) and is_trunk == True):
+  elif (resource == "dispatch" and event == "update" and account_id == int(account_id_spread) and is_trunk == True and body.get('status') != 1):
     # Update status in trunk dispatch on Paris account.
     print({"Handler If Case" : "Update Trunk Dispatch in Paris"})
     update_trunk_dispatch_on_paris = paris.update_trunk_dispatch()
