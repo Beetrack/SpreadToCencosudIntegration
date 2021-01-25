@@ -1,6 +1,5 @@
 import os, redis
 from datetime import timedelta
-from time import sleep
 from .beetrack_api import BeetrackAPI
 from .commons import fetch_tag_value
 
@@ -71,7 +70,7 @@ class SpreadHandler():
         print({"New Trunk Route Payload": payload})
         create_route = BeetrackAPI.create_route(self,payload)
         id_route_spread = create_route.get('response').get('route_id')
-        route = self.connection.setex(str(id_route_paris), 60*30, str(id_route_spread))
+        route = self.connection.setex(str(id_route_paris), 60*60, str(id_route_spread))
         # Cambiar tiempo a 24 hrs. (1 day)
         redis_save = {"identifier" : id_route_paris  , "redis": route}
         print ({"Redis Save Response" : redis_save})
