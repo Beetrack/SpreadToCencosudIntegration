@@ -21,9 +21,9 @@ class ParisHandler():
         self.body.pop('route_id')
         self.body.pop('truck_identifier')
         self.body.pop('contact_identifier')
-        self.body.pop('substatus')
         substatus = self.homologate_substatus()
         self.body.update({'substatus_code' : substatus})
+        self.body.pop('substatus')
         items = self.body.get('items')
         for item in items:
             item.pop('id')
