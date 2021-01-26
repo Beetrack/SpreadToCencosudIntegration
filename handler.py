@@ -69,7 +69,7 @@ def integrate(event, context):
     # Update trunk dispatches with last mile status in Paris account
     print({"Handler If Case" : "Update Spraed dispatches in Paris"})
     group_name = fetch_tag(body.get("groups"), "name")
-    if group_name == "PARIS" and (body.get("status") in [1,2,3,4]):
+    if group_name == "Paris" and (body.get("status") in [1,2,3,4]):
       #Cambiar a Paris cuando se metan las credenciales de Spread
       update_dispatch_on_paris = paris.update_dispatch()
       response_body = response_handler(update_dispatch_on_paris, "Message: Dispatch was updated with new status")
