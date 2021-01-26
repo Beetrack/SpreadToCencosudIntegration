@@ -11,7 +11,7 @@ custom:
         master: "2d4dfc0ba948bf3a8ba190c2c4202078e3f78893e3a15597dbfffacaa0ea9f7c"
         staging: "2d4dfc0ba948bf3a8ba190c2c4202078e3f78893e3a15597dbfffacaa0ea9f7c"    
       paris:
-        master: "39650708b26010c236c68aa3c581d4fe63539eeb67a53ce37ab6d230a30c10e4"
+        master: "5442ea20489171b474366e45a34132b47d644dfc97cbd0be866a8b527a2c8207"
         staging: "39650708b26010c236c68aa3c581d4fe63539eeb67a53ce37ab6d230a30c10e4"
     api_key:
       master: "SpreadCencoMas"
