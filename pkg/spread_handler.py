@@ -47,13 +47,18 @@ class SpreadHandler():
                 dispatch.pop('beecode')
                 dispatch.pop('is_trunk')
                 dispatch.update({'place' : 'CT Spread'})
-                dispatch.update({'is_trunk': 'true'})
                 dispatch.update({'destination': 'CT Spread'})
                 items = dispatch.get('items')
                 for item in items:
                     extras = item.get('extras')
                     carton_id = fetch_tag_value(extras, 'CARTONID')
-                    item.update({'extras' : [{'CARTONID': carton_id}]})
+                    sku = fetch_tag_value(extras, 'SKU')
+                    item.update(
+                        {'extras' : [
+                            {'CARTONID': carton_id},
+                            {'SKU': sku}
+                        ]
+                        })
                 spread_dispatches.append(dispatch)
             else: 
                 pass
