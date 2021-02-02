@@ -45,7 +45,6 @@ class SpreadHandler():
                 dispatch.pop('min_delivery_time')
                 dispatch.pop('max_delivery_time')
                 dispatch.pop('beecode')
-                dispatch.pop('is_trunk')
                 dispatch.update({'place' : 'CT Spread'})
                 dispatch.update({'destination': 'CT Spread'})
                 items = dispatch.get('items')

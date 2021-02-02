@@ -17,6 +17,7 @@ def integrate(event, context):
   event = body.get("event")
   truck = body.get("truck")
   is_trunk = body.get("is_trunk")
+  is_pickup = body.get("is_pickup")
   print({"Event from Account ID": account_id})
 
   paris_trucks = ["SPREAD"]
@@ -65,7 +66,7 @@ def integrate(event, context):
     update_trunk_dispatch_on_paris = paris.update_trunk_dispatch()
     response_body = response_handler(update_trunk_dispatch_on_paris, "Message: Dispatch was updated in Paris succesfully with new status")
 
-  elif (resource == "dispatch" and event== "update" and account_id == int(account_id_spread) and is_trunk == False):
+  elif (resource == "dispatch" and event== "update" and account_id == int(account_id_spread) and ((is_trunk == False and is_pickup == False) or (is_trunk == False and is_pickup == True))):
     # Update trunk dispatches with last mile status in Paris account
     print({"Handler If Case" : "Update Spraed dispatches in Paris"})
     group_name = fetch_tag(body.get("groups"), "name")
