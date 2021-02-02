@@ -37,7 +37,7 @@ def integrate(event, context):
       response_body = "Message: Trunk route does not belong to Spread or doesn't have any Spread dispatch."
     else:
       truck_identifier = "PAR-" + body.get("truck")
-      print({"Paris vehicle in Spread account" : truck_identifier)
+      print({"Paris vehicle in Spread account" : truck_identifier})
       verify_spread_truck = spread.check_or_create_trucks(truck_identifier)
       print({"Verify existence Paris truck in Spread account" : verify_spread_truck})
       create_trunk_route_on_spread = spread.create_new_trunk_route(verify_spread_truck, get_trunk_dispatches)
