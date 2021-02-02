@@ -85,7 +85,6 @@ class SpreadHandler():
         guide_in_spread = 'PAR-'+str(guide)
         id_dispatch = self.body.get('dispatch_id')
         payload = {
-            'is_trunk': True,
             'tags': [{'id_dispatch_paris': id_dispatch}]
         }
         print ({"Updating ID Dispatch Payload" : payload})
