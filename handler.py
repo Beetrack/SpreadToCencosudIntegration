@@ -63,7 +63,7 @@ def integrate(event, context):
       if add_dispatch_on_Spread_route != None:
         response_body = "Message: Paris dispatch_id added correctly."
       else:
-        print({"Message" : "Unable to add dispatch_id")
+        print({"Message" : "Unable to add dispatch_id"})
       
 
   elif (resource == "dispatch" and event == "update" and account_id == int(account_id_spread) and is_trunk == True and body.get('status') != 1):
