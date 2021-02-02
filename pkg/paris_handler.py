@@ -47,6 +47,15 @@ class ParisHandler():
         guide_on_paris = guide.replace('PAR-', '')
         tags = self.body.get('tags')
         id_dispatch_paris = fetch_tag_value(tags, 'id_dispatch_paris')
+        pickup = self.body.get('is_pickup')
+        if pickup == True:
+        payload = {
+            'status' : int(status),
+            'place':  'CT Spread',
+            'dispatch_id' : int(id_dispatch_paris),
+            'is_pickup' : True
+        }
+        else: 
         payload = {
             'status' : int(status),
             'place':  'CT Spread',
