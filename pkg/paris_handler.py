@@ -44,7 +44,7 @@ class ParisHandler():
     def update_trunk_dispatch(self):
         status = self.body.get('status')
         guide = self.body.get('guide')
-        guide_on_paris = guide.replace('PAR-', '')
+        guide_on_paris = guide.replace('PAR', '')
         tags = self.body.get('tags')
         id_dispatch_paris = fetch_tag_value(tags, 'id_dispatch_paris')
         pickup = self.body.get('is_pickup')

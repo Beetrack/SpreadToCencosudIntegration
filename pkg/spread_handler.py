@@ -35,7 +35,7 @@ class SpreadHandler():
                 id_route_paris = dispatch.get('route_id')
                 dispatch_indetifier = dispatch.get('identifier')
                 dispatch.update({'tags': [{'id_route_paris': id_route_paris}]})
-                dispatch.update({'identifier': 'PAR-'+str(dispatch_indetifier)})
+                dispatch.update({'identifier': 'PAR'+str(dispatch_indetifier)})
                 dispatch.pop('route_id')
                 dispatch.pop('status')
                 dispatch.pop('status_id')
@@ -82,7 +82,7 @@ class SpreadHandler():
 
     def get_id_dispatch_spread(self):
         guide = self.body.get('guide')
-        guide_in_spread = 'PAR-'+str(guide)
+        guide_in_spread = 'PAR'+str(guide)
         id_dispatch = self.body.get('dispatch_id')
         payload = {
             'tags': [{'id_dispatch_paris': id_dispatch}]
@@ -93,7 +93,7 @@ class SpreadHandler():
 
     def verify_existence_in_spread(self):
         guide = self.body.get('guide')
-        guide_in_spread = 'PAR-'+str(guide)
+        guide_in_spread = 'PAR'+str(guide)
         print(guide_in_spread)
         fetch_dispatch = BeetrackAPI.get_dispatch(self, guide_in_spread)
         print(fetch_dispatch)
