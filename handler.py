@@ -49,14 +49,14 @@ def integrate(event, context):
     print({"Handler If Case" : "Update Paris dispatch in Spread"})
     verify_dispatch_existance = spread.verify_existence_in_spread()
     if verify_dispatch_existance == False:
-      print({"Handler If Case" : "Add Paris dispatch on clone trunk route in Spread"})
+      print({"Handler If Case" : "Add Paris dispatch in clone trunk route in Spread"})
       add_dispatch_on_Spread_route = spread.add_dispatch_to_trunk_route()
       response = add_dispatch_on_Spread_route
       return response
     else:
       print({"Handler If Case" : "Adding dispatch_id to Spread dispatch"})
-      update_dispatch_id_on_spread = spread.get_id_dispatch_spread()
-      response = update_dispatch_id_on_spread
+      update_dispatch_id_in_spread = spread.get_id_dispatch_spread()
+      response = update_dispatch_id_in_spread
       return response
     response_body = response_handler(response, "Message: Dispatch was created or updated in Spread with the id dispatch of Paris")
 

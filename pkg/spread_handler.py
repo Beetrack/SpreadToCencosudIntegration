@@ -82,10 +82,11 @@ class SpreadHandler():
 
     def get_id_dispatch_spread(self):
         guide = self.body.get('guide')
-        guide_in_spread = 'PAR'+str(guide)
+        guide_in_spread = 'PAR' + str(guide)
         id_dispatch = self.body.get('dispatch_id')
+        print("Adding id_dispatch: {} to Spread guide: {}".format(id_dispatch, guide_in_spread))
         payload = {
-            'tags': [{'id_dispatch_paris': id_dispatch}]
+            "tags": [{"id_dispatch_paris": id_dispatch}]
         }
         print ({"Updating ID Dispatch Payload" : payload})
         update_dispatch = BeetrackAPI.update_dispatch(self, guide_in_spread, payload)
@@ -93,18 +94,16 @@ class SpreadHandler():
 
     def verify_existence_in_spread(self):
         guide = self.body.get('guide')
-        guide_in_spread = 'PAR'+str(guide)
-        print(guide_in_spread)
+        guide_in_spread = 'PAR' + str(guide)
+        print("Verifying if the dispatch {} exists".format(guide_in_spread))
         fetch_dispatch = BeetrackAPI.get_dispatch(self, guide_in_spread)
-        print(fetch_dispatch)
         response_mesage = fetch_dispatch.get('message')
-        print(response_mesage)
         if response_mesage == "Not found":
             print({"Dispatch Information" : response_mesage})
             return False
         else:
             print({"Dispatch Information" : "Found"})
-            return
+            return True
 
     def add_dispatch_to_trunk_route(self):
         paris_route_id = self.body.get('route_id')
