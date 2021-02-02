@@ -55,7 +55,7 @@ def integrate(event, context):
       if add_dispatch_on_Spread_route != None:
         response_body = "Message: Paris dispatch added correctly."
       else:
-        print({"Message" : "Unable to add dispatch")
+        print({"Message" : "Unable to add dispatch"})
     else:
       print({"Handler If Case" : "Adding dispatch_id to Spread dispatch"})
       update_dispatch_id_in_spread = spread.get_id_dispatch_spread()
