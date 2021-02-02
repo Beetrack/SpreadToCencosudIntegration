@@ -28,7 +28,7 @@ class SpreadHandler():
 
     def get_spread_trunk_dispatches(self, paris_route):
         paris_dispatches = paris_route.get('response').get('route').get('dispatches')
-        print("Paris dispatches :", paris_dispatches)
+        print({"Paris dispatches" : paris_dispatches})
         spread_dispatches = []
         for dispatch in paris_dispatches:
             if dispatch.get('is_trunk') == True:  
@@ -75,7 +75,6 @@ class SpreadHandler():
         create_route = BeetrackAPI.create_route(self,payload)
         id_route_spread = create_route.get('response').get('route_id')
         route = self.connection.setex(str(id_route_paris), 60*60*24, str(id_route_spread))
-        # Cambiar tiempo a 24 hrs. (1 day)
         redis_save = {"identifier" : id_route_paris  , "redis": route}
         print ({"Redis Save Response" : redis_save})
         return create_route
@@ -90,6 +89,7 @@ class SpreadHandler():
         }
         print ({"Updating ID Dispatch Payload" : payload})
         update_dispatch = BeetrackAPI.update_dispatch(self, guide_in_spread, payload)
+        print({"Update ID Dispatch" : update_dispatch})
         return update_dispatch
 
     def verify_existence_in_spread(self):
@@ -133,7 +133,7 @@ class SpreadHandler():
             self.body.update({'route_id' : spread_route_id.decode('ascii')})
             payload = self.body
             add_dispatch_on_spread = BeetrackAPI.create_dispatch(self, payload)
-            print("Paris dispatch added in Spread trunk route")
+            print({"Paris dispatch added in Spread trunk route" : add_dispatch_on_spread})
             return add_dispatch_on_spread
         else: 
             print("Spread route id was expired on Redis")
