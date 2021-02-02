@@ -136,7 +136,7 @@ class SpreadHandler():
             print({"Paris dispatch added in Spread trunk route" : add_dispatch_on_spread})
             return add_dispatch_on_spread
         else: 
-            print("Spread route id was expired on Redis")
+            print({"Message" : "Spread route id was expired on Redis"})
         
 
         
