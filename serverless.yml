@@ -6,10 +6,10 @@ custom:
     beetrack_api_keys:
       spread_group:
         master: "b1226ab78f0532270541d3afa0d1c5bc3d4ec01b5c67629d970e48c3c379f124"
-        staging: "b1226ab78f0532270541d3afa0d1c5bc3d4ec01b5c67629d970e48c3c379f124"
+        staging: "fe5b3b797664a2f417f3a5d1e7c58a05dfa92d8a4b0341afc39045441b63dbae"
       spread:
         master: "2d4dfc0ba948bf3a8ba190c2c4202078e3f78893e3a15597dbfffacaa0ea9f7c"
-        staging: "2d4dfc0ba948bf3a8ba190c2c4202078e3f78893e3a15597dbfffacaa0ea9f7c"    
+        staging: "a7d28c8d4128d66e1e41e36cb64e63056f02a432045ca8c7b3f051de9bf47a9b"    
       paris:
         master: "5442ea20489171b474366e45a34132b47d644dfc97cbd0be866a8b527a2c8207"
         staging: "39650708b26010c236c68aa3c581d4fe63539eeb67a53ce37ab6d230a30c10e4"
@@ -21,12 +21,10 @@ custom:
       staging: "4807"
     account_id_spread:
       master: "2237"
-      staging: "2237"
+      staging: "2527"
     account_id_paris:
       master: "17"
       staging: "17"
-
-
 
 provider:
   name: aws
@@ -49,7 +47,6 @@ provider:
       - sg-da8deba1
     subnetIds:
       - subnet-0e045569
-
 
 functions:
   integrate:
