@@ -80,11 +80,14 @@ class SpreadHandler():
         return create_route
 
     def get_id_dispatch_spread(self):
+        paris_route_id = self.body.get('route_id')
+        spread_route_id = self.connection.get(str(paris_route_id)
         guide = self.body.get('guide')
         guide_in_spread = 'PAR' + str(guide)
         id_dispatch = self.body.get('dispatch_id')
         print("Adding id_dispatch: {} to Spread guide: {}".format(id_dispatch, guide_in_spread))
         payload = {
+             "route_id": spread_route_id.decode('ascii'),
             "tags": [{"id_dispatch_paris": id_dispatch}]
         }
         print ({"Updating ID Dispatch Payload" : payload})
