@@ -145,12 +145,3 @@ class SpreadHandler():
         else: 
             print({"Message" : "Spread route id was expired on Redis"})
             return {"status" : "error"}
-        
-
-        
-                
-
-
-
-
-
