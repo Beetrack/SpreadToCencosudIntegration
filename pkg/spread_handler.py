@@ -58,6 +58,10 @@ class SpreadHandler():
                             {'SKU': sku}
                         ]
                         })
+                if dispatch.get('is_pickup') == True:
+                    dispatch.get('tags')[0]["pick_up"] = "True"
+                else:
+                    pass
                 spread_dispatches.append(dispatch)
             else: 
                 pass
