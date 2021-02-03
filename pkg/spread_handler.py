@@ -81,7 +81,7 @@ class SpreadHandler():
 
     def get_id_dispatch_spread(self):
         paris_route_id = self.body.get('route_id')
-        spread_route_id = self.connection.get(str(paris_route_id)
+        spread_route_id = self.connection.get(str(paris_route_id))
         guide = self.body.get('guide')
         guide_in_spread = 'PAR' + str(guide)
         id_dispatch = self.body.get('dispatch_id')
