@@ -137,6 +137,7 @@ class SpreadHandler():
             return add_dispatch_on_spread
         else: 
             print({"Message" : "Spread route id was expired on Redis"})
+            return {"status" : "error"}
         
 
         
