@@ -56,6 +56,7 @@ def integrate(event, context):
         response = {"statusCode": 200, "body": "Message: Paris dispatch added correctly."}
       else:
         print({"Message" : "Unable to add dispatch"})
+        response = "Message : Unable to add dispatch"
     else:
       print({"Handler If Case" : "Adding dispatch_id to Spread dispatch"})
       update_dispatch_id_in_spread = spread.get_id_dispatch_spread()
@@ -64,6 +65,7 @@ def integrate(event, context):
         response = {"statusCode": 200, "body": "Message: Paris dispatch_id added correctly."}
       else:
         print({"Message" : "Unable to add dispatch_id"})
+        response = "Message : Unable to add dispatch_id"
       
   elif (resource == "dispatch" and event == "update" and account_id == int(account_id_spread) and is_trunk == True and body.get('status') != 1):
     # Update status in trunk dispatch on Paris account.
