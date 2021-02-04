@@ -71,7 +71,7 @@ class ParisHandler():
         sc = substatus_code
         if sc == None:
             print("Not substatus code to homologate or not homologation for the substatus code")
-            return True
+            return None
         else:
             if status == 2 and sc == 'Entrega exitosa':
                 print("Substatus Homologation : En Cliente")
