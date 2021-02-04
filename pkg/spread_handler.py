@@ -92,7 +92,7 @@ class SpreadHandler():
         tags = [{"id_dispatch_paris" : id_dispatch}]
         print(self.body.get('is_pickup'))
         if self.body.get('is_pickup') == True:
-            tags[0]["pick_up"] = "True"
+            tags.append({"pick_up" : "true"})
         else:
             pass
         payload = {
