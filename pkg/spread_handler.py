@@ -93,12 +93,19 @@ class SpreadHandler():
         is_trunck = self.body.get('is_truck')
         is_pickup = self.body.get('is_pickup')
         id_dispatch = self.body.get('dispatch_id')
+        tags = self.body.get('tags')
         print("Adding id_dispatch: {} to Spread guide: {}".format(id_dispatch, guide_in_spread))
+        tags[0]["id_dispatch_paris"] = id_dispatch
+        print(self.body.get('is_pickup'))
+        if self.body.get('is_pickup') == True:
+            tags('tags')[0]["pick_up"] = "True"
+        else:
+            pass
         payload = {
             "route_id": spread_route_id.decode('ascii'),
             "is_truck": is_trunck,
             "is_pickup": is_pickup,
-            "tags": [{"id_dispatch_paris": id_dispatch}]
+            "tags":  tags
         }
         print ({"Updating ID Dispatch Payload" : payload})
         update_dispatch = BeetrackAPI.update_dispatch(self, guide_in_spread, payload)
