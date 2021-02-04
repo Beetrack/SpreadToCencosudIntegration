@@ -58,12 +58,6 @@ class SpreadHandler():
                             {'SKU': sku}
                         ]
                         })
-                print(dispatch.get('is_pickup'))
-                if dispatch.get('is_pickup') == True:
-                    dispatch.get('tags')[0]["pick_up"] = "True"
-                else:
-                    pass
-                print(dispatch.get('tags'))
                 spread_dispatches.append(dispatch)
             else: 
                 pass
