@@ -134,7 +134,12 @@ class SpreadHandler():
             paris_dispatch_id = self.body.get('dispatch_id')
             self.body.pop('dispatch_id')
             self.body.pop('truck_identifier')
-            self.body.update({'tags': [{'id_route_paris': paris_route_id},{'id_dispatch_paris': paris_dispatch_id}]})
+            tags = [{'id_route_paris': paris_route_id},{'id_dispatch_paris': paris_dispatch_id}]
+            if self.body.get('is_pickup') == True:
+                tags.append({"pick_up" : "true"})
+            else:
+                pass
+            self.body.update({'tags': tags})
             items = self.body.get('items')
             for item in items:
                 extras = item.get('extras')
