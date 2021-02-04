@@ -89,7 +89,7 @@ class SpreadHandler():
         id_dispatch = self.body.get('dispatch_id')
         print("Adding id_dispatch: {} to Spread guide: {}".format(id_dispatch, guide_in_spread))
         self.body.pop('tags')
-        tags = [{"id_dispatch_paris" : id_dispatch}]}
+        tags = [{"id_dispatch_paris" : id_dispatch}]
         print(self.body.get('is_pickup'))
         if self.body.get('is_pickup') == True:
             tags[0]["pick_up"] = "True"
