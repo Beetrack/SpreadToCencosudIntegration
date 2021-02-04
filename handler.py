@@ -20,7 +20,7 @@ def integrate(event, context):
   is_pickup = body.get("is_pickup")
   print({"Event from Account ID": account_id})
 
-  paris_trucks = ["SPREAD"]
+  paris_trucks = ["SPREAD", "spread"]
 
   if (resource == "route" and event == "update" and account_id == int(account_id_paris) and (truck in paris_trucks)):
     # Clone trunk route for Spread from Paris account to Spread account.
