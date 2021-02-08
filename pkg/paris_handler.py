@@ -75,54 +75,87 @@ class ParisHandler():
         else:
             if status == 2 and sc == 'Entrega exitosa':
                 print("Substatus Homologation : En Cliente")
-                return '61'
+                return 'En Cliente'
+            elif status == 2 and sc == 'Recogido':
+                print("Substatus Homologation : Recogido")
+                return 'Recogido'
             elif status == 3 and sc == 'Sin Moradores':
                 print("Substatus Homologation : Cliente No Está")
-                return '03'
+                return 'Cliente No Está'
+            elif status == 3 and sc == 'No Recogido - Cliente No Está':
+                print("Substatus Homologation : No Recogido - Cliente No Está")
+                return 'No Recogido - Cliente No Está' 
+            elif status == 3 and sc == 'No Recogido - Dirección erronea':
+                print("Substatus Homologation : No Recogido - Dirección erronea")
+                return 'No Recogido - Dirección erronea' 
+            elif status == 3 and sc == 'No Recogido - Motivos Cliente':
+                print("Substatus Homologation : No Recogido - Motivos Cliente")
+                return 'No Recogido - Motivos Cliente'
+            elif status == 3 and sc == 'No Recogido - Motivos Transporte':
+                print("Substatus Homologation : No Recogido - Motivos Transporte")
+                return 'No Recogido - Motivos Transporte'
+            elif status == 3 and sc == 'No Recogido - No cumple condición':
+                print("Substatus Homologation : No Recogido - No cumple condición")
+                return 'No Recogido - No cumple condición'
+            elif status == 3 and sc == 'No Recogido Cliente No Está - Definitivo':
+                print("Substatus Homologation : No Recogido Cliente No Está - Definitivo")
+                return 'No Recogido Cliente No Está - Definitivo'
+            elif status == 3 and sc == 'No Recogido Dirección Errónea - Definitivo':
+                print("Substatus Homologation : No Recogido Dirección Errónea - Definitivo")
+                return 'No Recogido Dirección Errónea - Definitivo'
+            elif status == 3 and sc == 'No Recogido Motivo Cliente - Defintivo':
+                print("Substatus Homologation : No Recogido Motivo Cliente - Defintivo")
+                return 'No Recogido Motivo Cliente - Defintivo'
+            elif status == 3 and sc == 'No Recogido Motivo Transporte - Defintivo':
+                print("Substatus Homologation : No Recogido Motivo Transporte - Defintivo")
+                return 'No Recogido Motivo Transporte - Defintivo'
             elif status == 3 and sc == 'No se encuentra direccion':
                 print("Substatus Homologation : Dirección Errónea")
-                return '02'
+                return 'Dirección Errónea'
             elif status == 3 and (sc == 'Dificultad para llegar a domicilio' or sc == 'Recibe en segunda visita' or sc == 'Otro tipo de problema (describir)' or sc == 'Fuera de Rango' or sc == 'No se encuentra direccion'):
                 print('Substatus Homologation : Motivos Transporte')
-                return '06'
+                return 'Motivos Transporte'
             elif status == 3 and sc == 'Domicilio no corresponde':
                 print("Substatus Homologation : Motivos Cliente")
-                return '30'
+                return 'Motivos Cliente'
             elif status == 3 and sc == 'Anulará, incompleto o cambiado':
                 print("Substatus Homologation : Expectativa")
-                return '51'
+                return 'Expectativa'
             elif status == 3 and sc == 'Producto dañado':
                 print("Substatus Homologation : Daño Producto")
-                return '52'
+                return 'Daño Producto'
             elif status == 3 and sc == 'Producto No Corresponde':
                 print("Substatus Homologation : Producto No Corresponde")
-                return '53'
+                return 'Producto No Corresponde'
             elif status == 3 and sc == 'Dirección Errónea - Definitivo':
                 print("Substatus Homologation : Dirección Errónea - Definitivo")
-                return '92'
+                return 'Dirección Errónea - Definitivo'
             elif status == 3 and sc == 'Cliente No Está - Definitivo':
                 print("Substatus Homologation : Cliente No Está - Definitivo")
-                return '93'
+                return 'Dirección Errónea - Definitivo'
             elif status == 3 and sc == 'Motivos Cliente - Definitivo':
                 print("Substatus Homologation : Motivos Cliente - Definitivo")
-                return '930'
+                return 'Motivos Cliente - Definitivo'
             elif status == 3 and (sc == 'Motivos Transporte - Definitivo' or sc == 'Robado' or sc == 'Extraviado'):
                 print("Substatus Homologation : Motivos Transporte - Definitivo")
-                return '96'
+                return 'Motivos Transporte - Definitivo'
             elif status == 3 and sc == 'Nota de Crédito':
                 print("Substatus Homologation : Nota de Crédito")
-                return '55'
+                return 'Nota de Crédito'
             elif status == 3 and sc == 'Error sistémico':
                 print("Substatus Homologation : Error sistémico")
-                return '31'
+                return 'Error sistémico'
             elif status == 4 and sc == 'Expectativa':
                 print("Substatus Homologation : Expectativa")
-                return '51'
+                return 'Expectativa'
             elif status == 4 and sc == 'Daño Producto':
                 print("Substatus Homologation : Daño Producto")
-                return '52'
+                return 'Daño Producto'
             elif status == 4 and sc == 'Producto No Corresponde':
                 print("Substatus Homologation : Producto No Corresponde")
-                return '53'
+                return 'Producto No Corresponde'
+            elif status == 4 and sc == 'Recogido Parcial':
+                print("Substatus Homologation : Recogido Parcial")
+                return 'Recogido Parcial'
             else: 
                 print("Not substatus code to homologate or not homologation for the substatus code'")
