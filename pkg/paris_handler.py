@@ -76,9 +76,18 @@ class ParisHandler():
             if status == 2 and sc == 'Entrega exitosa':
                 print("Substatus Homologation : En Cliente")
                 return 'En Cliente'
+            elif status == 2 and sc == 'En Expedición (Click & Collect)':
+                print("Substatus Homologation : En Expedición (Click & Collect)")
+                return 'En Expedición (Click & Collect)'
+            elif status == 2 and sc == 'Recogido En Expedición (Click & Collect)':
+                print("Substatus Homologation : Recogido En Expedición (Click & Collect)")
+                return 'Recogido En Expedición (Click & Collect)'
             elif status == 2 and sc == 'Recogido':
                 print("Substatus Homologation : Recogido")
                 return 'Recogido'
+            elif status == 3 and sc == 'Rechazo en Expedición (Click & Collect)':
+                print("Substatus Homologation : Rechazo en Expedición (Click & Collect)")
+                return 'Rechazo en Expedición (Click & Collect)'
             elif status == 3 and sc == 'Sin Moradores':
                 print("Substatus Homologation : Cliente No Está")
                 return 'Cliente No Está'
@@ -132,7 +141,7 @@ class ParisHandler():
                 return 'Dirección Errónea - Definitivo'
             elif status == 3 and sc == 'Cliente No Está - Definitivo':
                 print("Substatus Homologation : Cliente No Está - Definitivo")
-                return 'Dirección Errónea - Definitivo'
+                return 'Cliente No Está - Definitivo'
             elif status == 3 and sc == 'Motivos Cliente - Definitivo':
                 print("Substatus Homologation : Motivos Cliente - Definitivo")
                 return 'Motivos Cliente - Definitivo'
