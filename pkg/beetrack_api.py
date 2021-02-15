@@ -3,7 +3,6 @@ import requests, json, os
 class BeetrackAPI():
 
     def __init__(self, api_key, base_url):
-        # En caso de que pase a ser bidireccional cambiar la api key por un parametro a entregar.
         self.base_url = base_url
         self.api_key = api_key
         self.headers = { "Content-Type" : "application/json","X-AUTH-TOKEN": self.api_key}

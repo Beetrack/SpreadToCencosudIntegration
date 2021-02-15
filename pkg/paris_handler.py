@@ -7,7 +7,7 @@ class ParisHandler():
     def __init__(self, body):
         self.body = body
         self.api_key = os.environ.get('paris_api_key')
-        self.base_url = 'https://app.beetrack.dev/api/external/v1'
+        self.base_url = 'https://app.beetrack.com/api/external/v1'
         BeetrackAPI.__init__(self, self.api_key, self.base_url)
 
     def update_dispatch(self):
