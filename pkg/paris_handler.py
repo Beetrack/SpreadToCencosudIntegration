@@ -11,61 +11,79 @@ class ParisHandler():
         BeetrackAPI.__init__(self, self.api_key, self.base_url)
 
     def update_dispatch(self):
-        self.body.pop('resource')
-        self.body.pop('event')
-        self.body.pop('account_name')
-        self.body.pop('account_id')
-        guide = self.body.get('guide')
-        self.body.pop('guide')
-        self.body.pop('identifier')
-        self.body.pop('route_id')
-        self.body.pop('truck_identifier')
-        substatus = self.homologate_substatus()
-        self.body.pop('substatus_code')
-        self.body.update({'substatus' : substatus})
-        self.body.pop('evaluation_answers')
-        self.body.pop('groups')
-        items = self.body.get('items')
-        for item in items:
-            item.pop('id')
-            item.pop('extras')
-        self.body.update({'destination' : None})
-        self.body.update({'place' : None})
         tags = self.body.get('tags')
         id_dispatch_paris = fetch_tag_value(tags, 'id_dispatch_paris')
-        self.body.update({'dispatch_id' : int(id_dispatch_paris)})
-        self.body.pop('tags')
-        payload = self.body
-        print({"Update Dispatch Status Payload": payload})
-        create = BeetrackAPI(self.api_key, self.base_url).update_dispatch(guide, payload)
-        print({"Beetrack Response" : create},{"Payload to update" : payload})
-        return create
+        if id_dispatch_paris != None:
+            print({" Update LastMile Dispatch" : self.body.get('identifier')})
+            self.body.pop('resource')
+            self.body.pop('event')
+            self.body.pop('account_name')
+            self.body.pop('account_id')
+            self.body.pop('identifier')
+            self.body.pop('route_id')
+            self.body.pop('truck_identifier')
+            self.body.pop('evaluation_answers')
+            self.body.pop('groups')
+            guide = self.body.get('guide')
+            self.body.pop('guide')
+            substatus = self.homologate_substatus()
+            self.body.pop('substatus_code')
+            self.body.update({'substatus' : substatus})
+            items = self.body.get('items')
+            for item in items:
+                item.pop('id')
+                item.pop('extras')
+            self.body.update({'destination' : None})
+            self.body.update({'place' : None})
+            self.body.update({'dispatch_id' : int(id_dispatch_paris)})
+            self.body.pop('tags')
+            payload = self.body
+            print({" Update Payload": payload})
+            create = BeetrackAPI(self.api_key, self.base_url).update_dispatch(guide, payload)
+            print({" Update LastMile Dispatch Response" : create})
+            if create.get('status') == 'ok':
+                return {"statusCode": 200, "body": "Message: Paris dispatch updated correctly."}
+            else: 
+                return {"statusCode": 400, "body": "Message: Unable to update Paris dispatch."}
+        else:
+            print({" Unable To Update Dispatch" : " Tag id_dispatch_paris not found."})
+            return {"statusCode": 404, "body": "Message: Unable to update Paris dispatch."}
 
     def update_trunk_dispatch(self):
         status = self.body.get('status')
         guide = self.body.get('guide')
         guide_on_paris = guide.replace('PAR', '')
         tags = self.body.get('tags')
-        id_dispatch_paris = fetch_tag_value(tags, 'id_dispatch_paris')
         pickup = self.body.get('is_pickup')
-        if pickup == True:
-            payload = {
-                'status' : int(status),
-                'place':  'CT Spread',
-                'dispatch_id' : int(id_dispatch_paris),
-                'is_pickup' : True
-            }
-        else: 
-            payload = {
-                'status' : int(status),
-                'place':  'CT Spread',
-                'dispatch_id' : int(id_dispatch_paris)
-            }
-        print({"Request payload" : payload})
-        update = BeetrackAPI(self.api_key, self.base_url).update_dispatch(guide_on_paris, payload)
-        return update
+        id_dispatch_paris = fetch_tag_value(tags, 'id_dispatch_paris')
+        if id_dispatch_paris != None:
+            print({" Update Trunk Dispatch" : guide_on_paris})
+            if pickup == True:
+                payload = {
+                    'status' : int(status),
+                    'place':  'CT Spread',
+                    'dispatch_id' : int(id_dispatch_paris),
+                    'is_pickup' : True
+                }
+            else: 
+                payload = {
+                    'status' : int(status),
+                    'place':  'CT Spread',
+                    'dispatch_id' : int(id_dispatch_paris)
+                }
+            print({"  Update Payload" : payload})
+            update = BeetrackAPI(self.api_key, self.base_url).update_dispatch(guide_on_paris, payload)
+            print({"  Update Trunk Dispatch Response" : update})
+            if update.get('status') == 'ok':
+                return {"statusCode": 200, "body": "Message: Paris dispatch updated correctly."}
+            else: 
+                return {"statusCode": 400, "body": "Message: Unable to update Paris dispatch."}
+        else:
+            print({" Unable To Update Dispatch" : " Tag id_dispatch_paris not found."})
+            return {"statusCode": 404, "body": "Message: Unable to update Paris dispatch."}
 
     def homologate_substatus(self):
+        print({"Case Homologate Statuses" : self.body.get('identifier')})
         status = self.body.get('status')
         substatus_code = self.body.get('substatus')
         sc = substatus_code
