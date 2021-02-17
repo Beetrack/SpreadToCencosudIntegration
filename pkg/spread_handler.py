@@ -123,7 +123,7 @@ class SpreadHandler():
         print({" Dispatch Existance Verification" : guide_in_spread})
         fetch_dispatch = BeetrackAPI.get_dispatch(self, guide_in_spread)
         if fetch_dispatch.get('message') == "Not found":
-            print({"  Dispatch" : response_mesage})
+            print({"  Dispatch" : "Not found"})
             add_dispatch_on_Spread_route = self.add_dispatch_to_trunk_route()
             print({"   Response For Add Dispatch In Trunk Route" : add_dispatch_on_Spread_route})
             if add_dispatch_on_Spread_route.get('status') == 'ok':
