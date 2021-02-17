@@ -31,6 +31,7 @@ provider:
   runtime: python3.8
   stage: ${git:branch}
   region: us-west-2
+  timeout: 900
   apiKeys:
     - ${self:custom.environmentVariables.api_key.${self:provider.stage}}
   environment:

@@ -39,7 +39,7 @@ def integrate(event, context):
       if create_trunk_route_on_spread:
         response = {"statusCode": 200, "body": "Message: Trunk route was created in Spread."}
       else: 
-        response = {"statusCode": 500, "body": "Message: Trunk route wasn't created in Spread."} ##
+        response = {"statusCode": 500, "body": "Message: Trunk route wasn't created in Spread."} 
   
   elif (resource == "dispatch" and event == "update" and account_id == int(account_id_paris) and is_trunk == True and body.get("status") == 1):
     # Get id dispatch of the dispatches of Paris and added to a tag associated to the Spread dispatches.
