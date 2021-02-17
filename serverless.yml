@@ -57,9 +57,6 @@ functions:
           method: post
           private: true
 
-  test_redis:
-    handler: handler_test_redis.integrate
-
 plugins:
   - serverless-plugin-git-variables
   - serverless-python-requirements
