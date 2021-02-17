@@ -92,7 +92,7 @@ class SpreadHandler():
         paris_route_id = self.body.get('route_id')
         spread_route_id = self.connection.get(str(paris_route_id))
         print({"  Get Spread Route Redis Response" : spread_route_id})
-        if spread_route_id != False:
+        if spread_route_id != None:
             print({"  Case" : "Adding dispatch_id to Spread dispatch"})
             guide = self.body.get('guide')
             guide_in_spread = 'PAR' + str(guide)
@@ -143,7 +143,7 @@ class SpreadHandler():
         paris_route_id = self.body.get('route_id')
         spread_route_id = self.connection.get(str(paris_route_id))
         print({"   Get Spread Route Redis Response" : spread_route_id})
-        if spread_route_id != False:
+        if spread_route_id != None:
             print({"  Case" : "Add Paris dispatch in clone trunk route"})
             self.body.update({'route_id' : spread_route_id.decode('ascii')})
             self.body.pop('resource')
