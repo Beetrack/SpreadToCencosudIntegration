@@ -15,6 +15,7 @@ def integrate(event, context):
   resource = body.get("resource")
   event = body.get("event")
   truck = body.get("truck")
+  truck_dispatch = body.get("truck_identifier")
   is_trunk = body.get("is_trunk")
   is_pickup = body.get("is_pickup")
   paris_trucks = ["LCXK43", "SPRE01"]
@@ -42,7 +43,7 @@ def integrate(event, context):
       else: 
         response = {"statusCode": 500, "body": "Message: Trunk route wasn't created in Spread."} 
   
-  elif (resource == "dispatch" and event == "update" and account_id == int(account_id_paris) and is_trunk == True and body.get("status") == 1 and (truck in paris_trucks)):
+  elif (resource == "dispatch" and event == "update" and account_id == int(account_id_paris) and is_trunk == True and body.get("status") == 1 and (truck_dispatch in paris_trucks)):
     # Get id dispatch of the dispatches of Paris and added to a tag associated to the Spread dispatches.
     print({"Handler If Case" : "Update Paris dispatch in Spread"})
     verify_dispatch_existance = spread.verify_existence_in_spread()
