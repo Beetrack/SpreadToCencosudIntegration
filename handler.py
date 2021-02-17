@@ -50,7 +50,7 @@ def integrate(event, context):
     if verify_dispatch_existance == False:
       print({"Handler If Case" : "Add Paris dispatch in clone trunk route in Spread"})
       add_dispatch_on_Spread_route = spread.add_dispatch_to_trunk_route()
-      print({"Response for add dispatch in tranck route" : add_dispatch_on_Spread_route})
+      print({"Response for add dispatch in trunk route" : add_dispatch_on_Spread_route})
       if add_dispatch_on_Spread_route.get('status') == 'ok':
         response = {"statusCode": 200, "body": "Message: Paris dispatch added correctly."}
       else:

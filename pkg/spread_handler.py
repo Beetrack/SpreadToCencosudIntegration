@@ -72,8 +72,9 @@ class SpreadHandler():
             'dispatches': dispatches
         }
         print({"New Trunk Route Payload": payload})
-        create_route = BeetrackAPI.create_route(self,payload)
+        create_route = BeetrackAPI.create_route(self, payload)
         id_route_spread = create_route.get('response').get('route_id')
+        print({"Response Create Route Spread" : create_route})
         route = self.connection.setex(str(id_route_paris), 60*60*24, str(id_route_spread))
         redis_save = {"identifier" : id_route_paris  , "redis": route}
         print ({"Redis Save Response" : redis_save})
@@ -87,10 +88,9 @@ class SpreadHandler():
         is_trunck = self.body.get('is_truck')
         is_pickup = self.body.get('is_pickup')
         id_dispatch = self.body.get('dispatch_id')
-        print("Adding id_dispatch: {} to Spread guide: {}".format(id_dispatch, guide_in_spread))
+        print({"Adding id_dispatch" : id_dispatch, "Spread guide" : guide_in_spread})
         self.body.pop('tags')
         tags = [{"id_dispatch_paris" : id_dispatch}]
-        print(self.body.get('is_pickup'))
         if self.body.get('is_pickup') == True:
             tags.append({"pick_up" : "true"})
         else:
