@@ -1,4 +1,4 @@
-import redis
+import redis, os
 
 def integrate(event, context):
     url = os.environ.get('redis_url')
