@@ -44,10 +44,10 @@ class ParisHandler():
             if create.get('status') == 'ok':
                 return {"statusCode": 200, "body": "Message: Paris dispatch updated correctly."}
             else: 
-                return {"statusCode": 500, "body": "Message: Unable to update Paris dispatch."}
+                return {"statusCode": 400, "body": "Message: Unable to update Paris dispatch."}
         else:
             print({"Unable To Update Dispatch" : " Tag id_dispatch_paris not found."})
-            return {"statusCode": 500, "body": "Message: Unable to update Paris dispatch."}
+            return {"statusCode": 404, "body": "Message: Unable to update Paris dispatch."}
 
     def update_trunk_dispatch(self):
         status = self.body.get('status')
@@ -77,10 +77,10 @@ class ParisHandler():
             if update.get('status') == 'ok':
                 return {"statusCode": 200, "body": "Message: Paris dispatch updated correctly."}
             else: 
-                return {"statusCode": 500, "body": "Message: Unable to update Paris dispatch."}
+                return {"statusCode": 400, "body": "Message: Unable to update Paris dispatch."}
         else:
             print({" Unable To Update Dispatch" : " Tag id_dispatch_paris not found."})
-            return {"statusCode": 500, "body": "Message: Unable to update Paris dispatch."}
+            return {"statusCode": 404, "body": "Message: Unable to update Paris dispatch."}
 
     def homologate_substatus(self):
         print({"Case Homologate Statuses" : self.body.get('identifier')})
