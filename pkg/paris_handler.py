@@ -14,7 +14,7 @@ class ParisHandler():
         tags = self.body.get('tags')
         id_dispatch_paris = fetch_tag_value(tags, 'id_dispatch_paris')
         if id_dispatch_paris != None:
-            print({" Update LastMile Dispatch" : self.body.get('identifier')})
+            print({"Update LastMile Dispatch" : self.body.get('identifier')})
             self.body.pop('resource')
             self.body.pop('event')
             self.body.pop('account_name')
@@ -38,15 +38,15 @@ class ParisHandler():
             self.body.update({'dispatch_id' : int(id_dispatch_paris)})
             self.body.pop('tags')
             payload = self.body
-            print({" Update Payload": payload})
+            print({"Update Payload": payload})
             create = BeetrackAPI(self.api_key, self.base_url).update_dispatch(guide, payload)
-            print({" Update LastMile Dispatch Response" : create})
+            print({"Update LastMile Dispatch Response" : create})
             if create.get('status') == 'ok':
                 return {"statusCode": 200, "body": "Message: Paris dispatch updated correctly."}
             else: 
                 return {"statusCode": 400, "body": "Message: Unable to update Paris dispatch."}
         else:
-            print({" Unable To Update Dispatch" : " Tag id_dispatch_paris not found."})
+            print({"Unable To Update Dispatch" : " Tag id_dispatch_paris not found."})
             return {"statusCode": 404, "body": "Message: Unable to update Paris dispatch."}
 
     def update_trunk_dispatch(self):
@@ -57,7 +57,7 @@ class ParisHandler():
         pickup = self.body.get('is_pickup')
         id_dispatch_paris = fetch_tag_value(tags, 'id_dispatch_paris')
         if id_dispatch_paris != None:
-            print({" Update Trunk Dispatch" : guide_on_paris})
+            print({"Update Trunk Dispatch" : guide_on_paris})
             if pickup == True:
                 payload = {
                     'status' : int(status),

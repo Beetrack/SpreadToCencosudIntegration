@@ -59,6 +59,7 @@ def integrate(event, context):
     # Update trunk dispatches with last mile status in Paris account
     print({"Handler If Case" : "Update LastMile dispatches in Paris"})
     group_name = fetch_tag(body.get("groups"), "name")
+    print({"Dispatch Belongs To The Group" : group_name})
     if group_name == "Paris" and (body.get("status") in [1,2,3,4]):
       update_dispatch_on_paris = paris.update_dispatch()
       response = update_dispatch_on_paris  
