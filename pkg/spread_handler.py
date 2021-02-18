@@ -110,11 +110,11 @@ class SpreadHandler():
                 "is_pickup": is_pickup,
                 "tags":  tags
             }
-            print ({"   Updating ID Dispatch Payload" : payload})
+            print ({"Updating ID Dispatch Payload" : payload})
             update_dispatch = BeetrackAPI.update_dispatch(self, guide_in_spread, payload)
             return update_dispatch
         else: 
-            print({"  Unable To Add id_ispatch" : "Paris route id not found in Redis"})
+            print({"Unable To Add id_ispatch" : "Paris route id not found in Redis"})
             return {"status" : "error"}
 
     def verify_existence_in_spread(self):
@@ -129,7 +129,7 @@ class SpreadHandler():
             if add_dispatch_on_Spread_route.get('status') == 'ok':
                 return {"statusCode": 200, "body": "Message: Paris dispatch added correctly."}
             else:
-                return {"statusCode": 404, "body": "Message: Unable to add Paris dispatch."}
+                return {"statusCode": 500, "body": "Message: Unable to add Paris dispatch."}
         else:
             print({"Dispatch Existance Responce" : "Found"})
             update_dispatch_id_in_spread = self.get_id_dispatch_spread()
@@ -137,7 +137,7 @@ class SpreadHandler():
             if update_dispatch_id_in_spread.get('status') == 'ok':
                 return {"statusCode": 200, "body": "Message: Paris dispatch_id added correctly."}
             else:
-                return  {"statusCode": 404, "body": "Message: Unable to update Paris id_dispatch."}
+                return  {"statusCode": 500, "body": "Message: Unable to update Paris id_dispatch."}
 
     def add_dispatch_to_trunk_route(self):
         paris_route_id = self.body.get('route_id')

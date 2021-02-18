@@ -6,10 +6,10 @@ custom:
     beetrack_api_keys:
       spread_group:
         master: "b1226ab78f0532270541d3afa0d1c5bc3d4ec01b5c67629d970e48c3c379f124"
-        staging: "b1226ab78f0532270541d3afa0d1c5bc3d4ec01b5c67629d970e48c3c379f124"
+        staging: "781fe907a06542a72ed2b414ea71386fc2fb51545559d85c920b3856743d6782"
       spread:
         master: "2d4dfc0ba948bf3a8ba190c2c4202078e3f78893e3a15597dbfffacaa0ea9f7c"
-        staging: "2d4dfc0ba948bf3a8ba190c2c4202078e3f78893e3a15597dbfffacaa0ea9f7c"    
+        staging: "b87aef73bcf79b9bb0eaf0b328309ee8666d11e4b2b016428dc04b667832e32d"    
       paris:
         master: "5442ea20489171b474366e45a34132b47d644dfc97cbd0be866a8b527a2c8207"
         staging: "39650708b26010c236c68aa3c581d4fe63539eeb67a53ce37ab6d230a30c10e4"
@@ -21,7 +21,7 @@ custom:
       staging: "4807"
     account_id_spread:
       master: "2237"
-      staging: "2237"
+      staging: "2575"
     account_id_paris:
       master: "17"
       staging: "17"
