@@ -35,7 +35,9 @@ class SpreadHandler():
             if dispatch.get('is_trunk') == True:  
                 id_route_paris = dispatch.get('route_id')
                 dispatch_indetifier = dispatch.get('identifier')
-                dispatch.update({'tags': [{'id_route_paris': id_route_paris}]})
+                tags = dispatch.get('tags')
+                comuna = fetch_tag_value(tags, 'Desc_Comuna')
+                dispatch.update({'tags': [{'id_route_paris': id_route_paris}, {'Comuna' : comuna}]})
                 dispatch.update({'identifier': 'PAR'+str(dispatch_indetifier)})
                 dispatch.pop('route_id')
                 dispatch.pop('status')
@@ -52,6 +54,7 @@ class SpreadHandler():
                 for item in items:
                     extras = item.get('extras')
                     carton_id = fetch_tag_value(extras, 'CARTONID')
+                    sku = fetch_tag_value(extras, 'SKU')
                     sku = fetch_tag_value(extras, 'SKU')
                     item.update(
                         {'extras' : [
