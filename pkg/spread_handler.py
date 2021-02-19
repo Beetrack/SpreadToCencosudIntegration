@@ -72,7 +72,7 @@ class SpreadHandler():
         if id_route_paris == int(paris_route_on_redis):
             return True
         else:
-            saving_route = self.connection.setex("paris_route", 60*60*24, str(paris_route))
+            saving_route = self.connection.setex("paris_route", 60*60*24, str(id_route_paris))
             date = self.body.get('date')
             payload = {
                 'truck_identifier': truck, 
