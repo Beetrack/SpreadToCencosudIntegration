@@ -25,6 +25,9 @@ custom:
     account_id_paris:
       master: "17"
       staging: "17"
+    paris_url:
+      master: 'https://app.beetrack.com/api/external/v1'
+      staging: 'https://app.beetrack.dev/api/external/v1'
 
 provider:
   name: aws
@@ -43,6 +46,8 @@ provider:
     account_id_paris: ${self:custom.environmentVariables.account_id_paris.${self:provider.stage}}
     redis_url: 'newtransint.ucym94.ng.0001.usw2.cache.amazonaws.com'
     redis_port: 6379
+    paris_url: ${self:custom.environmentVariables.paris_url.${self:provider.stage}}
+
   vpc:
     securityGroupIds:
       - sg-da8deba1

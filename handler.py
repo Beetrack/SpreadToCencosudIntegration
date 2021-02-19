@@ -27,7 +27,7 @@ def integrate(event, context):
     print({"Handler if case": "Paris Trunk Route"})
     paris_route_id = body.get("route")
     print({" Paris Trunk Route": paris_route_id})
-    get_paris_route = BeetrackAPI(os.environ.get("paris_api_key"), "https://app.beetrack.com/api/external/v1").get_route(paris_route_id) 
+    get_paris_route = BeetrackAPI(os.environ.get("paris_api_key"), os.environ.get('paris_url')).get_route(paris_route_id) 
     print({" Get Route Info": get_paris_route})
     get_trunk_dispatches = spread.get_spread_trunk_dispatches(get_paris_route)
     if get_trunk_dispatches == []:
