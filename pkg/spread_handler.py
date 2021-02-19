@@ -28,7 +28,6 @@ class SpreadHandler():
             return truck
 
     def get_spread_trunk_dispatches(self, paris_route):
-        paris_route = paris_route.get('response').get('route').get('id')
         paris_dispatches = paris_route.get('response').get('route').get('dispatches')
         fetch_response = []
         spread_dispatches = []
