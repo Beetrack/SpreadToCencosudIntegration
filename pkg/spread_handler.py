@@ -29,8 +29,6 @@ class SpreadHandler():
 
     def get_spread_trunk_dispatches(self, paris_route):
         paris_route = paris_route.get('response').get('route').get('id')
-        saving_route = self.connection.setex("paris_route", 60*60*24, str(paris_route))
-        print({""})
         paris_dispatches = paris_route.get('response').get('route').get('dispatches')
         fetch_response = []
         spread_dispatches = []
@@ -75,6 +73,7 @@ class SpreadHandler():
         if id_route_paris == int(paris_route_on_redis):
             return True
         else:
+            saving_route = self.connection.setex("paris_route", 60*60*24, str(paris_route))
             date = self.body.get('date')
             payload = {
                 'truck_identifier': truck, 
