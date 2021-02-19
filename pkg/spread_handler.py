@@ -53,8 +53,10 @@ class SpreadHandler():
                 items = dispatch.get('items')
                 for item in items:
                     extras = item.get('extras')
-                    carton_id = fetch_tag_value(extras, 'CARTONID')
-                    sku = fetch_tag_value(extras, 'SKU')
+                    carton_id = []
+                    for extra in extras:
+                        if extra['name'] == 'CARTONID':
+                            carton_id.append(extra['value'])
                     sku = fetch_tag_value(extras, 'SKU')
                     item.update(
                         {'extras' : [
