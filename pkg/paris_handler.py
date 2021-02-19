@@ -61,14 +61,14 @@ class ParisHandler():
             if pickup == True:
                 payload = {
                     'status' : int(status),
-                    'place':  'CT Spread',
+                    'place':  'CT SPREAD',
                     'dispatch_id' : int(id_dispatch_paris),
                     'is_pickup' : True
                 }
             else: 
                 payload = {
                     'status' : int(status),
-                    'place':  'CT Spread',
+                    'place':  'CT SPREAD',
                     'dispatch_id' : int(id_dispatch_paris)
                 }
             print({"  Update Payload" : payload})
