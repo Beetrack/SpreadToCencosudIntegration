@@ -162,7 +162,7 @@ class SpreadHandler():
             self.body.pop('account_id')
             self.body.pop('guide')
             self.body.pop('truck_identifier')
-            dispatch_identifier = 'PAR-' + self.body.get('identifier')
+            dispatch_identifier = 'PAR' + self.body.get('identifier')
             self.body.update({'identifier' : dispatch_identifier})
             paris_dispatch_id = self.body.get('dispatch_id')
             self.body.pop('dispatch_id')
