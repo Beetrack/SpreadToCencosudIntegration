@@ -73,29 +73,31 @@ class SpreadHandler():
         paris_route_on_redis = self.connection.get('paris_route')
         print(paris_route_on_redis)
         print(type(paris_route_on_redis))
+        print(type(id_route_paris))
         if paris_route_on_redis:
-            return True
-        else:
-            saving_route = self.connection.setex("paris_route", 60*60*24, str(id_route_paris))
-            date = self.body.get('date')
-            payload = {
-                'truck_identifier': truck, 
-                'date': date,
-                'dispatches': dispatches
-            }
-            print({"New Trunk Route Payload": payload})
-            create_route = BeetrackAPI.create_route(self, payload)
-            if create_route.get('status') == "ok":
-                id_route_spread = create_route.get('response').get('route_id')
-                print({"Response Create Route In Spread" : create_route})
-                saving_route = self.connection.setex(str(id_route_paris), 60*60*24, str(id_route_spread))
-                if saving_route:
-                    print({"Redis Response": saving_route, "Key" : id_route_paris, "Value" : id_route_spread})
-                else:
-                    print({"Redis Response" : "Unable to save route on Redis"})
+            if  id_route_paris == paris_route_on_redis.decode('ascii'):
                 return True
             else:
-                return False
+                saving_route = self.connection.setex("paris_route", 60*60*24, str(id_route_paris))
+                date = self.body.get('date')
+                payload = {
+                    'truck_identifier': truck, 
+                    'date': date,
+                    'dispatches': dispatches
+                }
+                print({"New Trunk Route Payload": payload})
+                create_route = BeetrackAPI.create_route(self, payload)
+                if create_route.get('status') == "ok":
+                    id_route_spread = create_route.get('response').get('route_id')
+                    print({"Response Create Route In Spread" : create_route})
+                    saving_route = self.connection.setex(str(id_route_paris), 60*60*24, str(id_route_spread))
+                    if saving_route:
+                        print({"Redis Response": saving_route, "Key" : id_route_paris, "Value" : id_route_spread})
+                    else:
+                        print({"Redis Response" : "Unable to save route on Redis"})
+                    return True
+                else:
+                    return False
 
     def get_id_dispatch_spread(self):
         paris_route_id = self.body.get('route_id')
