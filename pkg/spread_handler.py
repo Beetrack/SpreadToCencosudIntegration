@@ -71,6 +71,8 @@ class SpreadHandler():
     def create_new_trunk_route(self, truck, dispatches):
         id_route_paris = self.body.get('route')
         paris_route_on_redis = self.connection.get('paris_route')
+        print(paris_route_on_redis)
+        print(type(paris_route_on_redis))
         if id_route_paris == int(paris_route_on_redis):
             return True
         else:
