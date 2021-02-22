@@ -71,15 +71,8 @@ class SpreadHandler():
     def create_new_trunk_route(self, truck, dispatches):
         id_route_paris = self.body.get('route')
         paris_route_on_redis = self.connection.get('paris_route')
-        cualquier_cosa = self.connection.get('sndvoaviafknvadlbalfjwpoefjasdlkvna11')
-        print(cualquier_cosa)
-        print(type(cualquier_cosa))
-        print(paris_route_on_redis)
-        print(type(paris_route_on_redis))
-        print(type(id_route_paris))
-        if paris_route_on_redis:
-            if  id_route_paris == paris_route_on_redis.decode('ascii'):
-                return True
+        if paris_route_on_redis == None or (str(id_route_paris) == paris_route_on_redis):
+            return True
         else:
             saving_route = self.connection.setex("paris_route", 60*60*24, str(id_route_paris))
             date = self.body.get('date')
