@@ -73,7 +73,7 @@ class SpreadHandler():
         paris_route_on_redis = self.connection.get('paris_route')
         print(paris_route_on_redis)
         print(type(paris_route_on_redis))
-        if id_route_paris:
+        if paris_route_on_redis:
             return True
         else:
             saving_route = self.connection.setex("paris_route", 60*60*24, str(id_route_paris))
