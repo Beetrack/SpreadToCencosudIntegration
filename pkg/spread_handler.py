@@ -53,17 +53,13 @@ class SpreadHandler():
                 items = dispatch.get('items')
                 for item in items:
                     extras = item.get('extras')
-                    carton_id = []
+                    extras_spread = []
                     for extra in extras:
                         if extra['name'] == 'CARTONID':
-                            carton_id.append(extra['value'])
+                            extras_spread.append({'CARTONID' : extra['value']})
                     sku = fetch_tag_value(extras, 'SKU')
-                    item.update(
-                        {'extras' : [
-                            {'CARTONID': carton_id},
-                            {'SKU': sku}
-                        ]
-                        })
+                    extras_spread.append({'SKU' : sku})
+                    item.update({'extras' : extras_spread})
                 spread_dispatches.append(dispatch)
                 fetch_response.append(dispatch_indetifier)
             else: 
@@ -174,12 +170,17 @@ class SpreadHandler():
             self.body.update({'tags': tags})
             items = self.body.get('items')
             for item in items:
-                extras = item.get('extras')
-                carton_id = fetch_tag_value(extras, 'CARTONID')
-                item.update({'extras' : [{'CARTONID': carton_id}]})
                 item.pop('id')
                 item.pop('original_quantity')
                 item.pop('delivered_quantity')
+                extras = item.get('extras')
+                extras_spread = []
+                for extra in extras:
+                        if extra['name'] == 'CARTONID':
+                            extras_spread.append({'CARTONID' : extra['value']})
+                sku = fetch_tag_value(extras, 'SKU')
+                extras_spread.append({'SKU' : sku})
+                item.update({'extras' : extras_spread})
             payload = self.body
             print({"Add Dispatch Payload" : payload})
             add_dispatch_on_spread = BeetrackAPI.create_dispatch(self, payload)
