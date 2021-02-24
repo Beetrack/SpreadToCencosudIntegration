@@ -162,12 +162,18 @@ class SpreadHandler():
             self.body.update({'identifier' : dispatch_identifier})
             paris_dispatch_id = self.body.get('dispatch_id')
             self.body.pop('dispatch_id')
-            tags = [{'id_route_paris': paris_route_id},{'id_dispatch_paris': paris_dispatch_id}]
+            tags = self.body.get('tags')
+            comuna = fetch_tag_value(tags, 'Desc_Comuna')
+            tags_spread = [
+                {'id_route_paris': paris_route_id},
+                {'id_dispatch_paris': paris_dispatch_id},
+                {'Comuna': comuna}
+                ]
             if self.body.get('is_pickup') == True:
-                tags.append({"pick_up" : "true"})
+                tags_spread.append({"pick_up" : "true"})
             else:
                 pass
-            self.body.update({'tags': tags})
+            self.body.update({'tags': tags_spread})
             items = self.body.get('items')
             for item in items:
                 item.pop('id')
