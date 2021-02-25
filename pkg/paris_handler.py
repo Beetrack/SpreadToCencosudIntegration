@@ -13,8 +13,9 @@ class ParisHandler():
     def update_dispatch(self):
         tags = self.body.get('tags')
         id_dispatch_paris = fetch_tag_value(tags, 'id_dispatch_paris')
+        identifier = self.body.get('identifier')
         if id_dispatch_paris != None:
-            print({"Update LastMile Dispatch" : self.body.get('identifier')})
+            print({"Update LastMile Dispatch" : identifier})
             self.body.pop('resource')
             self.body.pop('event')
             self.body.pop('account_name')
@@ -24,22 +25,23 @@ class ParisHandler():
             self.body.pop('truck_identifier')
             self.body.pop('evaluation_answers')
             self.body.pop('groups')
-            guide = self.body.get('guide')
+            self.body.pop('max_delivery_time')
+            self.body.pop('min_delivery_time')
             self.body.pop('guide')
-            substatus = self.homologate_substatus()
+            substatus = self.homologate_substatus(identifier)
             self.body.pop('substatus_code')
             self.body.update({'substatus' : substatus})
-            items = self.body.get('items')
-            for item in items:
-                item.pop('id')
-                item.pop('extras')
-            self.body.update({'destination' : None})
-            self.body.update({'place' : None})
+            self.body.pop('items')
+            if self.body.get('is_pickup') == False:   
+                self.body.update({'destination' : None})
+                self.body.update({'place' : None})
+            else:
+                pass
             self.body.update({'dispatch_id' : int(id_dispatch_paris)})
             self.body.pop('tags')
             payload = self.body
             print({"Update Payload": payload})
-            create = BeetrackAPI(self.api_key, self.base_url).update_dispatch(guide, payload)
+            create = BeetrackAPI(self.api_key, self.base_url).update_dispatch(identifier, payload)
             print({"Update LastMile Dispatch Response" : create})
             if create.get('status') == 'ok':
                 return {"statusCode": 200, "body": "Message: Paris dispatch updated correctly."}
@@ -82,8 +84,8 @@ class ParisHandler():
             print({" Unable To Update Dispatch" : " Tag id_dispatch_paris not found."})
             return {"statusCode": 404, "body": "Message: Unable to update Paris dispatch."}
 
-    def homologate_substatus(self):
-        print({"Case Homologate Statuses" : self.body.get('identifier')})
+    def homologate_substatus(self, guide):
+        print({"Case Homologate Statuses" : guide})
         status = self.body.get('status')
         substatus_code = self.body.get('substatus')
         sc = substatus_code
