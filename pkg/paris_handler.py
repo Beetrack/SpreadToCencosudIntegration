@@ -36,7 +36,8 @@ class ParisHandler():
                 self.body.update({'destination' : None})
                 self.body.update({'place' : None})
             else:
-                pass
+                self.body.pop('destination')
+                self.body.pop('place')
             self.body.update({'dispatch_id' : int(id_dispatch_paris)})
             self.body.pop('tags')
             payload = self.body
@@ -84,8 +85,8 @@ class ParisHandler():
             print({" Unable To Update Dispatch" : " Tag id_dispatch_paris not found."})
             return {"statusCode": 404, "body": "Message: Unable to update Paris dispatch."}
 
-    def homologate_substatus(self, guide):
-        print({"Case Homologate Statuses" : guide})
+    def homologate_substatus(self, identifier):
+        print({"Case Homologate Statuses" : identifier})
         status = self.body.get('status')
         substatus_code = self.body.get('substatus')
         sc = substatus_code
