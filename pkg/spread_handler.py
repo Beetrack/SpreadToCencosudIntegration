@@ -81,7 +81,7 @@ class SpreadHandler():
             return route_spread
             
     def create_route_in_spread(self, truck, dispatches, id_route_paris):
-        saving_route = self.connection.setex("paris_route", 60*60*24, str(id_route_paris))
+        saving_route = self.connection.setex("paris_route", 60*60*48, str(id_route_paris))
         date = self.body.get('date')
         payload = {
             'truck_identifier': truck, 

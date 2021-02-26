@@ -42,9 +42,9 @@ class ParisHandler():
             self.body.pop('tags')
             payload = self.body
             print({"Update Payload": payload})
-            create = BeetrackAPI(self.api_key, self.base_url).update_dispatch(identifier, payload)
-            print({"Update LastMile Dispatch Response" : create})
-            if create.get('status') == 'ok':
+            update = BeetrackAPI(self.api_key, self.base_url).update_dispatch(identifier, payload)
+            print({"Update LastMile Dispatch Response" : update})
+            if update.get('status') == 'ok':
                 return {"statusCode": 200, "body": "Message: Paris dispatch updated correctly."}
             else: 
                 return {"statusCode": 400, "body": "Message: Unable to update Paris dispatch."}
