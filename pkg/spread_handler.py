@@ -74,13 +74,13 @@ class SpreadHandler():
             if id_route_paris == int(paris_route_on_redis):
                 return True
             else:
-                route_spread = self.create_trunck_route(truck, dispatches, id_route_paris)
+                route_spread = self.create_route_in_spread(truck, dispatches, id_route_paris)
                 return route_spread
         else:
-            route_spread = self.create_trunck_route(truck, dispatches, id_route_paris)
+            route_spread = self.create_route_in_spread(truck, dispatches, id_route_paris)
             return route_spread
             
-    def create_trunck_route(self, truck, dispatches, id_route_paris):
+    def create_route_in_spread(self, truck, dispatches, id_route_paris):
         saving_route = self.connection.setex("paris_route", 60*60*24, str(id_route_paris))
         date = self.body.get('date')
         payload = {
