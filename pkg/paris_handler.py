@@ -28,6 +28,7 @@ class ParisHandler():
             self.body.pop('max_delivery_time')
             self.body.pop('min_delivery_time')
             self.body.pop('guide')
+            self.body.pop('locked')
             substatus = self.homologate_substatus(identifier)
             self.body.pop('substatus_code')
             self.body.update({'substatus' : substatus})
