@@ -21,6 +21,7 @@ class ParisHandler():
             self.body.pop('account_name')
             self.body.pop('account_id')
             self.body.pop('identifier')
+            id_route_spread = self.body.get('route_id')
             self.body.pop('route_id')
             self.body.pop('truck_identifier')
             self.body.pop('evaluation_answers')
@@ -40,12 +41,12 @@ class ParisHandler():
                 self.body.pop('destination')
                 self.body.pop('place')
             self.body.update({'dispatch_id' : int(id_dispatch_paris)})
-            self.body.pop('tags')
+            self.body.update({'tags' : [{'id_route_spread' : id_route_spread}]})
             payload = self.body
             print({"Update Payload": payload})
-            create = BeetrackAPI(self.api_key, self.base_url).update_dispatch(identifier, payload)
-            print({"Update LastMile Dispatch Response" : create})
-            if create.get('status') == 'ok':
+            update = BeetrackAPI(self.api_key, self.base_url).update_dispatch(identifier, payload)
+            print({"Update LastMile Dispatch Response" : update})
+            if update.get('status') == 'ok':
                 return {"statusCode": 200, "body": "Message: Paris dispatch updated correctly."}
             else: 
                 return {"statusCode": 400, "body": "Message: Unable to update Paris dispatch."}
