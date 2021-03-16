@@ -190,3 +190,18 @@ class SpreadHandler():
         else: 
             print({"Unable To Add Dispatch" : "Paris route id not found in Redis"})
             return {"status" : "error"}
+
+    def test_redis(self):
+        test_redis_variable = self.connection.setex("test_redis_key", 60*60*24, "test_redis_value")
+        print({"Save" : test_redis_variable})
+        get_test_redis_variable = self.connection.get("test_redis_key")
+        print({"Get" : get_test_redis_variable})
+        exists_test_redis_variable = self.connection.exists("test_redis_key")
+        print({"Exists" : exists_test_redis_variable})
+        delete_test_redis_variable = self.connection.delete("test_redis_key")
+        print({"Delete" : delete_test_redis_variable})
+        exists_test_redis_variable = self.connection.exists("test_redis_key")
+        print({"Exists" : exists_test_redis_variable})
+        get_test_redis_variable = self.connection.get("test_redis_key")
+        print({"Get" : get_test_redis_variable})
+        return "Prueba exitos"

@@ -66,6 +66,11 @@ def integrate(event, context):
     else:
       response = {"statusCode": 200, "body": "Message: Resource is dispatch but event is not update or is not Paris group or status is pending. Not doing anything."}
   
+  elif resource == "test_redis":
+    test_redis = spread.test_redis()
+    print(test_redis)
+    response = {"statusCode": 200, "body": "Message: Prueba redis"}
+
   else:
     response = {"statusCode": 200, "body": "Message: In case of a route webhook event isn't update or belong to LCXK43 or SPRE01 trucks. In case of a dispatch webhook don't belog to a Spread-Paris route."}
 
