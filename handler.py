@@ -18,9 +18,10 @@ def integrate(event, context):
   truck_dispatch = body.get("truck_identifier")
   is_trunk = body.get("is_trunk")
   is_pickup = body.get("is_pickup")
-  paris_trucks = ["LCXK43", "SPRE01", "CYRY70", "BFYK62"]
+  paris_trucks = ["LCXK43", "SPRE01", "CYRY70", "BFYK62"] 
   account_id = body.get("account_id")
   print({"Event from Account ID": account_id})
+  print({"Truck" : truck, "Event" : event, "Resource" : resource})
 
   if (resource == "route" and event == "update" and account_id == int(account_id_paris) and (truck in paris_trucks)):
     # Clone Paris trunk route on Spread account.
