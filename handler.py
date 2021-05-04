@@ -18,7 +18,7 @@ def integrate(event, context):
   truck_dispatch = body.get("truck_identifier")
   is_trunk = body.get("is_trunk")
   is_pickup = body.get("is_pickup")
-  paris_trucks = ["LCXK43", "SPRE01", "CYRY70", "BFYK62"] 
+  paris_trucks = ["LCXK43", "SPRE01", "CYRY70", "BFYK62", "PHGK45"] 
   account_id = body.get("account_id")
   print({"Event from Account ID": account_id})
   print({"Truck" : truck, "Event" : event, "Resource" : resource})
